@@ -19,9 +19,10 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- Estrutura da tabela `log_export`
 --
 
-CREATE TABLE `log_export` (
+CREATE TABLE IF NOT EXISTS `log_export` (
   `le_data` datetime NOT NULL,
   `tsIdentificador` int(11) NOT NULL,
   `le_metadados` text,
-  `le_arquivos` text
+  `le_arquivos` text,
+  `le_diretorio` varchar(200) default NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;

@@ -8,36 +8,21 @@ session_start();
  * @param [mixed] $string     string to be tested 
  * @subpackage 
  */ 
- /*
-function is_utf8($string) { 
-   
-	// From http://w3.org/International/questions/qa-forms-utf-8.html 
-	return preg_match('%^(?: 
-		  [\x09\x0A\x0D\x20-\x7E]            # ASCII 
-		| [\xC2-\xDF][\x80-\xBF]             # non-overlong 2-byte 
-		|  \xE0[\xA0-\xBF][\x80-\xBF]        # excluding overlongs 
-		| [\xE1-\xEC\xEE\xEF][\x80-\xBF]{2}  # straight 3-byte 
-		|  \xED[\x80-\x9F][\x80-\xBF]        # excluding surrogates 
-		|  \xF0[\x90-\xBF][\x80-\xBF]{2}     # planes 1-3 
-		| [\xF1-\xF3][\x80-\xBF]{3}          # planes 4-15 
-		|  \xF4[\x80-\x8F][\x80-\xBF]{2}     # plane 16 
-	)*$%xs', $string); 
-   
-} 
-*/
+
 function is_utf8($string) { 
 
-		$string = preg_replace("#[\x09\x0A\x0D\x20-\x7E]#"        ,"",$string);         // ASCII 
-		$string = preg_replace("#[\xC2-\xDF][\x80-\xBF]#"         ,"",$string);             // non-overlong 2-byte 
-		$string = preg_replace("#\xE0[\xA0-\xBF][\x80-\xBF]#"    ,"",$string);     // excluding overlongs 
-		$string = preg_replace("#[\xE1-\xEC\xEE\xEF][\x80-\xBF]{2}#","",$string);     // straight 3-byte 
-		$string = preg_replace("#\xED[\x80-\x9F][\x80-\xBF]#"    ,"",$string);     // excluding surrogates 
-		$string = preg_replace("#\xF0[\x90-\xBF][\x80-\xBF]{2}#","",$string);     // planes 1-3 
-		$string = preg_replace("#[\xF1-\xF3][\x80-\xBF]{3}#"    ,"",$string);     //  planes 4-15 
-		$string = preg_replace("#\xF4[\x80-\x8F][\x80-\xBF]{2}#","",$string);     // plane 16 
+	$string = preg_replace("#[\x09\x0A\x0D\x20-\x7E]#"          ,"",$string);  // ASCII 
+	$string = preg_replace("#[\xC2-\xDF][\x80-\xBF]#"           ,"",$string);  // non-overlong 2-byte 
+	$string = preg_replace("#\xE0[\xA0-\xBF][\x80-\xBF]#"       ,"",$string);  // excluding overlongs 
+	$string = preg_replace("#[\xE1-\xEC\xEE\xEF][\x80-\xBF]{2}#","",$string);  // straight 3-byte 
+	$string = preg_replace("#\xED[\x80-\x9F][\x80-\xBF]#"       ,"",$string);  // excluding surrogates 
+	$string = preg_replace("#\xF0[\x90-\xBF][\x80-\xBF]{2}#"    ,"",$string);  // planes 1-3 
+	$string = preg_replace("#[\xF1-\xF3][\x80-\xBF]{3}#"        ,"",$string);  // planes 4-15 
+	$string = preg_replace("#\xF4[\x80-\x8F][\x80-\xBF]{2}#"    ,"",$string);  // plane 16 
 
-		$rc = ($string == ""?true:false); 
-		return $rc;
+	$rc = ($string == ""?true:false); 
+
+	return $rc;
 }
 				
 function codificacao($string) {
@@ -45,7 +30,7 @@ function codificacao($string) {
 }
 
   //$enc pode ser [iso-8859-1/UTF-8/etc..] 
-function RemoveAcentos($str, $enc = 'iso-8859-1'){ 
+function removeAcentos($str, $enc = 'iso-8859-1'){ 
 
     $acentos = array( 
         'A' => '/&Agrave;|&Aacute;|&Acirc;|&Atilde;|&Auml;|&Aring;/', 
@@ -80,8 +65,8 @@ function normalizaNomeDiretorio($string){
 	$search1 = array(" ","  ","   ","    ","     ");
 	$replace = "-";
 	$replace1 = "_";
-	$string = RemoveAcentos($string);
-	$string = RemoveAcentos($string,"UTF-8");
+	$string = removeAcentos($string);
+	$string = removeAcentos($string,"UTF-8");
 	$string = trim(str_replace($search, $replace, $string));
 	$string = str_replace($search1,  $replace1, $string);
 	return $string;
@@ -114,10 +99,40 @@ function normalizaEspacos($str){
 	return $str;
 }
 
-function count_pages($pdfname) {
-  $pdftext = file_get_contents($pdfname);
-  $num = preg_match_all("/\/Page\W/", $pdftext, $dummy);
-  return $num;
+function countPagesPDF($pdfname) {
+	$pdftext = file_get_contents($pdfname);
+	$num = preg_match_all("/\/Page\W/", $pdftext, $dummy);
+	return $num;
+}
+
+function validaData($data,$formato="Y/m/d"){
+	$check=false;
+	if ($formato=="Y/m/d"){
+		$datas = explode("/", $data);
+		$year=$datas[0]; // Ano
+		$month=$datas[1]; // Mês
+		$day=$datas[2]; // dia
+
+	}elseif($formato=="Y-m-d"){
+		$datas = explode("-", $data);
+		$year=$datas[0]; // Ano
+		$month=$datas[1]; // Mês
+		$day=$datas[2]; // dia
+	
+	}
+
+	$check=checkdate($month ,$day ,$year);
+	return $check;
+}
+
+function montaData($data){
+	$datas = explode("-", $data);
+	$year=$datas[0]; // Ano
+	$month=$datas[1]; // Mês
+	$day=$datas[2]; // dia
+
+	$check=checkdate($month ,$day ,$year);
+	return $check;
 }
 
 function citacaoNomeABNT($autor){
@@ -141,9 +156,9 @@ function citacaoNomeABNT($autor){
 	/*
 	echo "<br />Nome: ". $nome;
 	echo "<br /> array: " . $array_nome[$tamanho-1];
-	echo "<br /> Sem acentos array: " . RemoveAcentos($array_nome[$tamanho-1],$codificacao) . "<br />"; */
+	echo "<br /> Sem acentos array: " . removeAcentos($array_nome[$tamanho-1],$codificacao) . "<br />"; */
 	
-	if (in_array(RemoveAcentos($array_nome[$tamanho-1],$codificacao), $sobrenomesArray)){
+	if (in_array(removeAcentos($array_nome[$tamanho-1],$codificacao), $sobrenomesArray)){
 		$sobrenomeComposto=true;
 		$sobrenome=mb_strtoupper($array_nome[$tamanho-2], $codificacao) . " ". mb_strtoupper($array_nome[$tamanho-1], $codificacao) ;
 	}else{
@@ -174,11 +189,11 @@ function citacaoNomeABNT($autor){
 }
 
 function montaCitacaoDocumento($pfNomeAutor,$ttTitulo,$tsDataDefesa_ano, $pageCount,$grauTipo,
-								$prArea,$inNome,$tsCidadeLocalDefesa,$tsDataFinalizacao_ano){
+								$prArea,$inNome,$tsCidadeLocalDefesa){
 	$citacao="";
 
 	if (!(($pageCount==0) or ($pfNomeAutor=="") or ($prArea=="") or ($inNome=="") 
-		or ($tsDataDefesa_ano=="") or ($tsDataDefesa_ano=="0000") or ($tsDataFinalizacao_ano=="") or ($tsDataFinalizacao_ano=="0000") or ($tsCidadeLocalDefesa==""))){
+		or ($tsDataDefesa_ano=="") or ($tsDataDefesa_ano=="0000") or ($tsCidadeLocalDefesa==""))){
 		if($grauTipo=="Tese"){
 			$grau="Doutorado em ";
 		}else{
@@ -186,7 +201,7 @@ function montaCitacaoDocumento($pfNomeAutor,$ttTitulo,$tsDataDefesa_ano, $pageCo
 		}
 		$citacao=citacaoNomeABNT($pfNomeAutor).". ".trim(htmlspecialchars($ttTitulo, ENT_QUOTES)).". ".
 			$tsDataDefesa_ano .". ". $pageCount." f. ". utf8_decode($grauTipo) ." (". $grau . trim($prArea). ") - " .
-			trim($inNome) .", ".trim($tsCidadeLocalDefesa).", ". trim($tsDataFinalizacao_ano).".";
+			trim($inNome) .", ".trim($tsCidadeLocalDefesa).", ". trim($tsDataDefesa_ano).".";
 	}
 	
 	return $citacao;
@@ -231,6 +246,7 @@ function normalizaGrau($grau){
 	}
 	return $grauSigla;
 }
+
 function grauPorExtensoCaminho($grauSigla){
 	if ($grauSigla=="M"){ 
 		$grauExtenso="/Mestrado";
@@ -241,6 +257,66 @@ function grauPorExtensoCaminho($grauSigla){
 	}
 	return $grauExtenso;
 }
+
+  
+
+//after ('@', 'biohazard@online.ge');
+//returns 'online.ge'
+//from the first occurrence of '@'
+
+//before ('@', 'biohazard@online.ge');
+//returns 'biohazard'
+//from the first occurrence of '@'
+
+//between ('@', '.', 'biohazard@online.ge');
+//returns 'online'
+//from the first occurrence of '@'
+
+//after_last ('[', 'sin[90]*cos[180]');
+//returns '180]'
+//from the last occurrence of '['
+
+//before_last ('[', 'sin[90]*cos[180]');
+//returns 'sin[90]*cos['
+//from the last occurrence of '['
+
+// between_last ('[', ']', 'sin[90]*cos[180]');
+//returns '180'
+//from the last occurrence of '['
+
+function after ($this, $inthat){
+	if (!is_bool(strpos($inthat, $this)))
+	return substr($inthat, strpos($inthat,$this)+strlen($this));
+}
+
+function after_last ($this, $inthat){
+	if (!is_bool(strrevpos($inthat, $this)))
+	return substr($inthat, strrevpos($inthat, $this)+strlen($this));
+}
+
+function before ($this, $inthat){
+	return substr($inthat, 0, strpos($inthat, $this));
+}
+
+function before_last ($this, $inthat){
+	return substr($inthat, 0, strrevpos($inthat, $this));
+}
+
+function between ($this, $that, $inthat){
+	return before ($that, after($this, $inthat));
+}
+
+function between_last ($this, $that, $inthat){
+ return after_last($this, before_last($that, $inthat));
+}
+
+// use strrevpos function in case your php version does not include it
+function strrevpos($instr, $needle){
+    $rev_pos = strpos (strrev($instr), strrev($needle));
+    if ($rev_pos===false) return false;
+    else return strlen($instr) - $rev_pos - strlen($needle);
+}
+   
 
 /*
 * Monta a arvore completa da área de Conhecimento de arcordo com a tabela cnpq e Tematres.
@@ -291,22 +367,83 @@ function arvoreAreaConhecimentoCNPQ($nomeArea){
 	}
 	mysql_free_result($SEL_AreaCNPQ_RESULT);
 	
+	$arvore="CNPQ::".$arvore;
 	return $arvore;
 		
 }
 
-$arrayFormats=array("PDF"=>"application/pdf","DOC"=>"application/msword","DOT"=>"application/msword","ZIP"=>"application/zip","JPG"=>"image/jpeg");
+$arrayMimeTypes=array(
+	"PDF"=>"application/pdf",
+	"DOC"=>"application/msword",
+	"DOT"=>"application/msword",
+	"DOCX"=>"application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+	"DOTX"=>"application/vnd.openxmlformats-officedocument.wordprocessingml.template",
+	"XLS"=>"application/vnd.ms-excel",
+	"XLT"=>"application/vnd.ms-excel",
+	"XLSX"=>"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+	"XLTX"=>"application/vnd.openxmlformats-officedocument.spreadsheetml.template",
+	"PPT"=>"application/vnd.ms-powerpoint",
+	"PPS"=>"application/vnd.ms-powerpoint",
+	"PPTX"=>"application/vnd.openxmlformats-officedocument.presentationml.presentation",
+	"PPSX"=>"application/vnd.openxmlformats-officedocument.presentationml.slideshow",
+	"ODT"=>"application/vnd.oasis.opendocument.text",
+	"ODM"=>"application/vnd.oasis.opendocument.text-master",
+	"ODG"=>"application/vnd.oasis.opendocument.graphics",
+	"ODP"=>"application/vnd.oasis.opendocument.presentation",
+	"OTS"=>"application/vnd.oasis.opendocument.spreadsheet-template",
+	"ZIP"=>"application/zip",
+	"JPEG"=>"image/jpeg",
+	"JPG"=>"image/jpeg",
+	"GIF"=>"image/GIF",
+	"PNG"=>"image/png",
+	"TIFF"=>"image/tiff",
+	"BMP"=>"image/x-ms-bmp",
+	"WAV"=>"audio/x-wav",
+	"MP3"=>"audio/mpeg",
+	"MP2"=>"video/mpeg",
+	"MPA"=>"video/mpeg",
+	"MPE"=>"video/mpeg",
+	"MPEG"=>"video/mpeg",
+	"MPG"=>"video/mpeg",
+	"VOB"=>"video/mpeg",
+	"MOV"=>"video/quicktime",
+	"RTF"=>"text/richtext",
+	"XML"=>"text/xml",
+	"TEXT"=>"text/plain",
+	"TXT"=>"text/plain",
+	"HTM"=>"text/html",
+	"HTML"=>"text/html",
+	"MARC"=>"application/marc",
+	"CDA"=>"application/x-cdf",
+	"PSD"=>"application/octet-stream",
+	"RAR"=>"application/octet-stream"
+);
+
 $arrayIdiomas=array("pt"=>"por","en"=>"eng","fr"=>"fra","es"=>"spa","al"=>"deu", "de"=>"deu", "it"=>"ita","jp"=>"jpn","nl"=>"nld",""=>"eng");
 
 if(!session_is_registered("VAdmin_cnCod")) {
 	header("Location: ../index.php");
 }else{
-	//Local onde os arquivos serão salvos
-	$diretorio="/dspace-base/exports/";
+	require "diretorio_export.php";
+	
+
+	if($DIRETORIO_EXPORTACAO!=""){
+		$diretorio=$DIRETORIO_EXPORTACAO;
+	}else{
+		$local_dir = $_SERVER['DOCUMENT_ROOT'].$_SERVER['SCRIPT_NAME'];
+		$local_dir= before('/tde_admin/exportar.php', $local_dir);
+		$diretorio=$local_dir ."/arquivos_exportacao/";
+	}
+
 	require "../conexao/conexao_fim.inc";
 	mysql_select_db($base_fim, $conexao_fim);	
 	
+	if(!is_dir($diretorio)){
+		mkdir($diretorio, 0775);
+	}
+	//chdir($diretorio);
 	
+	//exit;
 	/*
 	//set character_set_results = 'utf8';
 	set character_set_client = 'utf8';
@@ -329,6 +466,7 @@ if(!session_is_registered("VAdmin_cnCod")) {
 			."INNER JOIN Programa ON Programa.prCod = TSPF.prCod "
 			."WHERE TSPF.prCod is not null "
 			."AND TSPF.tspfTipo = 'Autor' "
+			//."AND Teses.tsIdentificador=1890 "
 			. $clausuraINProgramas 
 			. $clausuraGrau 
 			."ORDER BY Teses.tsIdentificador ";
@@ -343,7 +481,7 @@ if(!session_is_registered("VAdmin_cnCod")) {
 	mkdir ($diretorio.$datatimed,0775);
 	$diretorio=$diretorio.$datatimed."/";
 	$verifica_permissao_diretorio=is_writeable($diretorio);
-	mkdir($diretorio."exportados", 0775);
+	mkdir($diretorio."Exportados", 0775);
 
 	if ($verifica_permissao_diretorio!="1") {		
 		header("Location: exportar.php?e=finalizado&erro=1");
@@ -351,6 +489,7 @@ if(!session_is_registered("VAdmin_cnCod")) {
 	}
 	
 	while ($SEL_ts_RES!="") {
+		$dataValida=true;
 		$grauSigla="";
 		$tsIdioma="";
 		$grauExtensoCaminho="";
@@ -370,31 +509,31 @@ if(!session_is_registered("VAdmin_cnCod")) {
 		
 		if ($organizar=="PG"){
 
-			if(!is_dir($diretorio."exportados/".$programaNome)){
-				mkdir($diretorio."exportados/".$programaNome, 0775);
+			if(!is_dir($diretorio."Exportados/".$programaNome)){
+				mkdir($diretorio."Exportados/".$programaNome, 0775);
 			}
 			
-			if(!is_dir($diretorio."exportados/".$programaNome.$grauExtensoCaminho)){
-				mkdir($diretorio."exportados/".$programaNome.$grauExtensoCaminho, 0775);
+			if(!is_dir($diretorio."Exportados/".$programaNome.$grauExtensoCaminho)){
+				mkdir($diretorio."Exportados/".$programaNome.$grauExtensoCaminho, 0775);
 			}
 		
-			if(!is_dir($diretorio."exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador)){
-				mkdir($diretorio."exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador, 0775);
+			if(!is_dir($diretorio."Exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador)){
+				mkdir($diretorio."Exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador, 0775);
 			}
 	
 		}else{
-			if(!is_dir($diretorio."exportados/".$tsIdentificador)){
-				mkdir($diretorio."exportados/".$tsIdentificador, 0775);
+			if(!is_dir($diretorio."Exportados/".$tsIdentificador)){
+				mkdir($diretorio."Exportados/".$tsIdentificador, 0775);
 			}
 		}
-
+		/*
 		if(!is_dir($diretorio."_arquivos_nao_encontrados")){
 			mkdir($diretorio."_arquivos_nao_encontrados", 0775);
 		}
 		if(!is_dir($diretorio."_caracter_invalido")){
 			mkdir($diretorio."_caracter_invalido", 0775);
 		}
-		
+		*/
 
 		if ($tsIdentificador=="") {
 			$erro_metadados=$erro_metadados."tsIdentificador: vazio;";
@@ -418,9 +557,18 @@ if(!session_is_registered("VAdmin_cnCod")) {
 		//Pegar a Data de Atualização(DateStamp)
 		//$unix = gmmktime();
 		//$tsDataAtualizacao = date("Y-m-d\TH:i:s\Z", $unix);
-		$tsDataAtualizacao=$SEL_ts_RES["tsDataAtualizacao"];
+
+		
+		$tsDataAtualizacao=substr($SEL_ts_RES["tsDataAtualizacao"], 0, 10);
+		
+
 		if ($tsDataAtualizacao=="") {
 			$erro_metadados=$erro_metadados."tsDataAtualizacao: vazio;";
+		}
+
+		if (validaData($tsDataAtualizacao,"Y-m-d")==false){
+			$dataValida=false;
+			$erro_metadados=$erro_metadados."tsDataDefesa: data Inválida;";
 		}
 		$acessioned="<dcvalue element=\"date\" qualifier=\"accessioned\">".$tsDataAtualizacao."</dcvalue>";
 		
@@ -437,16 +585,22 @@ if(!session_is_registered("VAdmin_cnCod")) {
 		if ($tsDataDefesa=="") {
 			$erro_metadados=$erro_metadados."tsDataDefesa: vazio;";
 		}
-		$issued="<dcvalue element=\"date\" qualifier=\"issued\">".$tsDataDefesa."</dcvalue>";
-		$tsDataDefesa_split=split("-",$tsDataDefesa);
-		$tsDataDefesa_ano=$tsDataDefesa_split[0];
-		//$available_ano="<dcvalue element=\"date\" qualifier=\"available\">".$tsDataDefesa_ano."</dcvalue>";
+		if (validaData($tsDataDefesa,"Y-m-d")==true){
+			$issued="<dcvalue element=\"date\" qualifier=\"issued\">".$tsDataDefesa."</dcvalue>";
+			$tsDataDefesa_split=split("-",$tsDataDefesa);
+			$tsDataDefesa_ano=$tsDataDefesa_split[0];
+			//$available_ano="<dcvalue element=\"date\" qualifier=\"available\">".$tsDataDefesa_ano."</dcvalue>";
+		}else{
+			$dataValida=false;
+			$erro_metadados=$erro_metadados."tsDataDefesa: data Inválida;";
+		}
+
 		$tsDataFinalizacao=$SEL_ts_RES["tsDataFinalizacao"];
 		if ($tsDataFinalizacao=="") {
 			$erro_metadados=$erro_metadados."tsDataFinalizacao: vazio;";
 		}
 		
-		if (($tsDataFinalizacao_ano=="") or ($tsDataFinalizacao_ano="0000")){
+		if (($tsDataFinalizacao_ano=="") or ($tsDataFinalizacao_ano=="0000")){
 			$tsDataFinalizacao=$tsDataAtualizacao;
 			$tsDataFinalizacao_split=split("-",$tsDataFinalizacao);
 			$tsDataFinalizacao_ano=$tsDataFinalizacao_split[0];	
@@ -742,6 +896,8 @@ if(!session_is_registered("VAdmin_cnCod")) {
 			}
 		}
 		*/
+		$ttTitulo="";
+		$ttIdioma="";
 		while ($SEL_tt_RES!="") {
 			$ttTitulo=trim($SEL_tt_RES["ttTitulo"]);
 			$ttIdioma=strtolower($SEL_tt_RES["ttIdioma"]);
@@ -918,13 +1074,15 @@ if(!session_is_registered("VAdmin_cnCod")) {
 		$contents="";
 		$numero_arquivo="";
 		$tempDireito=array();
+		$tempFormato=array();
 		//$arrayDireitos=array("Publico"=>"openAccess","Restrito"=>"restrictedAccess","Retido"=>"embargoedAccess");
 	
 		$i=0;
 		$arFormato="";
 		$contArqNaoExiste=0;
+		$format="";
 		while ($SEL_ar_RES!="") {
-			$i=$i++;
+			$i=$i+1;
 			//clearstatcOache();
 			$arDireitos=$SEL_ar_RES["arDireitos"];
 			if($arDireitos=="Restrito"){
@@ -935,43 +1093,41 @@ if(!session_is_registered("VAdmin_cnCod")) {
 				$tempDireito[$i]="O";
 			}
 			
-			$arFormato=$SEL_ar_RES["arFormato"];
-			if(array_key_exists($arFormato,$arrayFormats)){
-				$format="<dcvalue element=\"format\" language=\"por\">".$arrayFormats[$arFormato]."</dcvalue>";
-			}else{
-				$format="<dcvalue element=\"format\" language=\"por\">".$arFormato."</dcvalue>";
-			}
-			
 			$arquivoorigem="";
 			$arquivo_nome="";
 			$arquivoorigem=$SEL_ar_RES["arURL"];
 			
 			$arquivoorigem=str_replace(":", "_", $arquivoorigem);
-
 			$numero_arquivo=$numero_arquivo+1;
-			//Verifica se diretório existe e se é permitido a escrita no mesmo
-			
-			
-			if ($organizar=="PG"){
 
-				$verifica_permissao_pasta_destino=is_writeable($diretorio."exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador);
-							
+			//Verificando o formato e jogando no array temporario
+			$arFormato=$SEL_ar_RES["arFormato"];
+			if(array_key_exists(strtoupper($arFormato),$arrayMimeTypes)){
+				$tempFormato[$i]=$arrayMimeTypes[strtoupper($arFormato)];
+			}elseif(array_key_exists(strtoupper(after_last('.',$arquivoorigem)),$arrayMimeTypes)){
+				$tempFormato[$i]=$arrayMimeTypes[strtoupper(after_last('.',$arquivoorigem))];
+			}
+			
+			//Verifica se diretório existe e se é permitido a escrita no mesmo
+	
+			if ($organizar=="PG"){
+				$verifica_permissao_pasta_destino=is_writeable($diretorio."Exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador);	
 				if ($verifica_permissao_pasta_destino!="1") {
-					$erro_arquivos=$erro_arquivos."erro: ".$diretorio."exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador." ->Não foi encontrado a pasta de destino ou não tem permissão de escrita;";
+					$erro_arquivos=$erro_arquivos."erro: ".$diretorio."Exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador." ->Não foi encontrado a pasta de destino ou não tem permissão de escrita;";
 				}
 			}else{
-				$verifica_permissao_pasta_destino=is_writeable($diretorio."exportados/".$tsIdentificador);
+				$verifica_permissao_pasta_destino=is_writeable($diretorio."Exportados/".$tsIdentificador);
 				if ($verifica_permissao_pasta_destino!="1") {
-					$erro_arquivos=$erro_arquivos."erro: ".$diretorio."exportados/".$tsIdentificador." ->Não foi encontrado a pasta de destino ou não tem permissão de escrita;";
+					$erro_arquivos=$erro_arquivos."erro: ".$diretorio."Exportados/".$tsIdentificador." ->Não foi encontrado a pasta de destino ou não tem permissão de escrita;";
 				}
 			}
 			
 			$arquivo_nome = substr(strrchr($arquivoorigem, "/"), 1);
 		
 			if ($organizar=="PG"){
-				$arquivodestino=$diretorio."exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador."/".$arquivo_nome;
+				$arquivodestino=$diretorio."Exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador."/".$arquivo_nome;
 			}else{
-				$arquivodestino=$diretorio."exportados/".$tsIdentificador."/".$arquivo_nome;
+				$arquivodestino=$diretorio."Exportados/".$tsIdentificador."/".$arquivo_nome;
 			}
 		
 			$arquivo_existe=file_exists($arquivoorigem);
@@ -982,6 +1138,7 @@ if(!session_is_registered("VAdmin_cnCod")) {
 				$erro_arquivos=$erro_arquivos."erro: ".$arquivoorigem." ->Não foi encontrado o arquivo;";
 				$contArqNaoExiste++;
 				
+				/*
 				if ($organizar=="PG"){
 					if(!is_dir($diretorio."_arquivos_nao_encontrados/".$programaNome)){
 						mkdir($diretorio."_arquivos_nao_encontrados/".$programaNome, 0775);
@@ -999,6 +1156,7 @@ if(!session_is_registered("VAdmin_cnCod")) {
 						mkdir($diretorio."_arquivos_nao_encontrados/".$tsIdentificador, 0775);
 					}
 				}
+				*/	
 				
 				if ($contents=="") {
 					$contents=$arquivo_nome."	bundle:ORIGINAL	license".$numero_arquivo.".txt	bundle:LICENSE";
@@ -1025,7 +1183,7 @@ if(!session_is_registered("VAdmin_cnCod")) {
 					$contents=$contents."".$arquivo_nome."	bundle:ORIGINAL	license.".$numero_arquivo.".txt	bundle:LICENSE";
 				}
 				if (strtoupper($arFormato)=="PDF"){
-					$pageCount= $pageCount+count_pages($arquivodestino);
+					$pageCount= $pageCount+countPagesPDF($arquivodestino);
 				}
 			}
 			$SEL_ar_RES=mysql_fetch_array($SEL_ar_query);
@@ -1038,8 +1196,13 @@ if(!session_is_registered("VAdmin_cnCod")) {
 		}else{
 			$rigths="<dcvalue element=\"rights\" language=\"por\">Acesso Aberto</dcvalue>";
 		}
+		
+		$tempFormato = array_unique($tempFormato);
+		foreach ($tempFormato as $valueFormato) {
+			$format=$format."\n<dcvalue element=\"format\" language=\"por\">".$valueFormato."</dcvalue>";
+		}
 
-		$citacaoDocumento=montaCitacaoDocumento($pfNomeAutor,$ttTitulo, $tsDataDefesa_ano, $pageCount, $grauTipo, $prArea ,$inNome, $tsCidadeLocalDefesa, $tsDataFinalizacao_ano);
+		$citacaoDocumento=montaCitacaoDocumento($pfNomeAutor,$ttTitulo, $tsDataDefesa_ano, $pageCount, $grauTipo, $prArea ,$inNome, $tsCidadeLocalDefesa);
 		if ($citacaoDocumento!=""){
 			$identifierCitation="<dcvalue element=\"identifier\" qualifier=\"citation\" language=\"por\">".$citacaoDocumento."</dcvalue>";
 		}
@@ -1084,30 +1247,42 @@ if(!session_is_registered("VAdmin_cnCod")) {
 		//está OK
 		
 		if ($organizar=="PG"){
-			$fp1=fopen($diretorio."exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador."/contents",a);
+			$fp1=fopen($diretorio."Exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador."/contents",a);
 			$escreve1=fwrite($fp1,$contents); 
 			fclose($fp1);
 			
-			$fp2=fopen($diretorio."exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador."/dublin_core.xml",a);
+			$fp2=fopen($diretorio."Exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador."/dublin_core.xml",a);
 			$escreve2=fwrite($fp2,$arquivoxmlutf8); 
 			fclose($fp2);
 			
 		}else{
-			$fp1=fopen($diretorio."exportados/".$tsIdentificador."/contents",a);
+			$fp1=fopen($diretorio."Exportados/".$tsIdentificador."/contents",a);
 			$escreve1=fwrite($fp1,$contents); 
 			fclose($fp1);
 			
-			$fp2=fopen($diretorio."exportados/".$tsIdentificador."/dublin_core.xml",a);
+			$fp2=fopen($diretorio."Exportados/".$tsIdentificador."/dublin_core.xml",a);
 			$escreve2=fwrite($fp2,$arquivoxmlutf8); 
 			fclose($fp2);
 		}
 		
-		
-		
-		
-		//Arquivos não encontrados e Caracteres Inválido
-		if(($contArqNaoExiste!=0) and (is_utf8($arquivoxmlutf8)==false)){
+		// data inválida - Arquivos não encontrados e Caracteres Inválido
+		if(($dataValida==false) and ($contArqNaoExiste!=0) and (is_utf8($arquivoxmlutf8)==false)){
+			if(!is_dir($diretorio."_erro_caracter_data_arquivo")){
+				mkdir($diretorio."_erro_caracter_data_arquivo", 0775);
+			}
+			if(!is_dir($diretorio."_erro_caracter_data_arquivo/".$tsIdentificador)){
+				mkdir($diretorio."_erro_caracter_data_arquivo/".$tsIdentificador, 0775);
+			}
 			
+			if ($organizar=="PG"){
+				rename($diretorio."Exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador."/",$diretorio."_erro_caracter_data_arquivo/".$tsIdentificador."/"); 
+			}else{
+				rename($diretorio."Exportados/".$tsIdentificador."/", $diretorio."_erro_caracter_data_arquivo/".$tsIdentificador."/");
+			}
+			
+		}elseif(($contArqNaoExiste!=0) and (is_utf8($arquivoxmlutf8)==false)){
+			// Arquivos não encontrados e Caracteres Inválido
+			/*
 			if ($organizar=="PG"){
 				if(!is_dir($diretorio."_arquivos_nao_encontrados/".$programaNome)){
 					mkdir($diretorio."_arquivos_nao_encontrados/".$programaNome, 0775);
@@ -1115,14 +1290,60 @@ if(!session_is_registered("VAdmin_cnCod")) {
 				if(!is_dir($diretorio."_arquivos_nao_encontrados/".$programaNome.$grauExtensoCaminho)){
 					mkdir($diretorio."_arquivos_nao_encontrados/".$programaNome.$grauExtensoCaminho, 0775);
 				}
-				rename($diretorio."exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador."/", $diretorio."_arquivos_nao_encontrados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador."/"); 
+				rename($diretorio."Exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador."/", $diretorio."_arquivos_nao_encontrados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador."/"); 
 				
 			}else{
-				rename($diretorio."exportados/".$tsIdentificador."/", $diretorio."_arquivos_nao_encontrados/".$tsIdentificador."/");
+				rename($diretorio."Exportados/".$tsIdentificador."/", $diretorio."_arquivos_nao_encontrados/".$tsIdentificador."/");
 			
 			}
+
+			*/
+			if(!is_dir($diretorio."_erro_caracter_arquivo")){
+				mkdir($diretorio."_erro_caracter_arquivo", 0775);
+			}
+			if(!is_dir($diretorio."_erro_caracter_arquivo/".$tsIdentificador)){
+				mkdir($diretorio."_erro_caracter_arquivo/".$tsIdentificador, 0775);
+			}
+			
+			if ($organizar=="PG"){
+				rename($diretorio."Exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador."/",$diretorio."_erro_caracter_arquivo/".$tsIdentificador."/"); 
+			}else{
+				rename($diretorio."Exportados/".$tsIdentificador."/", $diretorio."_erro_caracter_arquivo/".$tsIdentificador."/");
+			}
+			
+		}elseif(($contArqNaoExiste!=0) and ($dataValida==false)){
+	
+			if(!is_dir($diretorio."_erro_data_arquivo")){
+				mkdir($diretorio."_erro_data_arquivo", 0775);
+			}
+			if(!is_dir($diretorio."_erro_data_arquivo/".$tsIdentificador)){
+				mkdir($diretorio."_erro_data_arquivo/".$tsIdentificador, 0775);
+			}
+			
+			if ($organizar=="PG"){
+				rename($diretorio."Exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador."/",$diretorio."_erro_data_arquivo/".$tsIdentificador."/"); 
+			}else{
+				rename($diretorio."Exportados/".$tsIdentificador."/", $diretorio."_erro_data_arquivo/".$tsIdentificador."/");
+			}
+			
+		}elseif(($dataValida==false) and (is_utf8($arquivoxmlutf8)==false)){
+
+			if(!is_dir($diretorio."_erro_caracter_data")){
+				mkdir($diretorio."_erro_caracter_data", 0775);
+			}
+			if(!is_dir($diretorio."_erro_caracter_data/".$tsIdentificador)){
+				mkdir($diretorio."_erro_caracter_data/".$tsIdentificador, 0775);
+			}
+			
+			if ($organizar=="PG"){
+				rename($diretorio."Exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador."/",$diretorio."_erro_caracter_data/".$tsIdentificador."/"); 
+			}else{
+				rename($diretorio."Exportados/".$tsIdentificador."/", $diretorio."_erro_caracter_data/".$tsIdentificador."/");
+			}
+			
 		}elseif($contArqNaoExiste!=0){
 			//Arquivos não encontrados
+			/*
 			if ($organizar=="PG"){
 				if(!is_dir($diretorio."_arquivos_nao_encontrados/".$programaNome)){
 					mkdir($diretorio."_arquivos_nao_encontrados/".$programaNome, 0775);
@@ -1130,14 +1351,30 @@ if(!session_is_registered("VAdmin_cnCod")) {
 				if(!is_dir($diretorio."_arquivos_nao_encontrados/".$programaNome.$grauExtensoCaminho)){
 					mkdir($diretorio."_arquivos_nao_encontrados/".$programaNome.$grauExtensoCaminho, 0775);
 				}
-				rename($diretorio."exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador."/", $diretorio."_arquivos_nao_encontrados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador."/"); 
+				rename($diretorio."Exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador."/", $diretorio."_arquivos_nao_encontrados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador."/"); 
 				
 			}else{
-				rename($diretorio."exportados/".$tsIdentificador."/", $diretorio."_arquivos_nao_encontrados/".$tsIdentificador."/");
+				rename($diretorio."Exportados/".$tsIdentificador."/", $diretorio."_arquivos_nao_encontrados/".$tsIdentificador."/");
 			
 			}
+			*/
+			
+			if(!is_dir($diretorio."_erro_arquivo")){
+				mkdir($diretorio."_erro_arquivo", 0775);
+			}
+			if(!is_dir($diretorio."_erro_arquivo/".$tsIdentificador)){
+				mkdir($diretorio."_erro_arquivo/".$tsIdentificador, 0775);
+			}
+			
+			if ($organizar=="PG"){
+				rename($diretorio."Exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador."/",$diretorio."_erro_arquivo/".$tsIdentificador."/"); 
+			}else{
+				rename($diretorio."Exportados/".$tsIdentificador."/", $diretorio."_erro_arquivo/".$tsIdentificador."/");
+			}
+			
 		}elseif(is_utf8($arquivoxmlutf8)==false){
 			//Problema de Caracteres
+			/*
 			if ($organizar=="PG"){
 				if(!is_dir($diretorio."_caracter_invalido/".$programaNome)){
 						mkdir($diretorio."_caracter_invalido/".$programaNome, 0775);
@@ -1145,26 +1382,55 @@ if(!session_is_registered("VAdmin_cnCod")) {
 				if(!is_dir($diretorio."_caracter_invalido/".$programaNome.$grauExtensoCaminho)){
 					mkdir($diretorio."_caracter_invalido/".$programaNome.$grauExtensoCaminho, 0775);
 				}
-				rename($diretorio."exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador."/", $diretorio."_caracter_invalido/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador."/"); 
+				rename($diretorio."Exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador."/", $diretorio."_caracter_invalido/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador."/"); 
 
 			}else{
-				rename($diretorio."exportados/".$tsIdentificador."/", $diretorio."_caracter_invalido/".$tsIdentificador."/");
+				rename($diretorio."Exportados/".$tsIdentificador."/", $diretorio."_caracter_invalido/".$tsIdentificador."/");
 			
 			}
+			*/
+			
+			if(!is_dir($diretorio."_erro_caracter")){
+				mkdir($diretorio."_erro_caracter", 0775);
+			}
+			if(!is_dir($diretorio."_erro_caracter/".$tsIdentificador)){
+				mkdir($diretorio."_erro_caracter/".$tsIdentificador, 0775);
+			}
+			
+			if ($organizar=="PG"){
+				rename($diretorio."Exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador."/",$diretorio."_erro_caracter/".$tsIdentificador."/"); 
+			}else{
+				rename($diretorio."Exportados/".$tsIdentificador."/", $diretorio."_erro_caracter/".$tsIdentificador."/");
+			
+			}
+			
+		}elseif($dataValida==false){
+			if(!is_dir($diretorio."_erro_data")){
+				mkdir($diretorio."_erro_data", 0775);
+			}
+			if(!is_dir($diretorio."_erro_data/".$tsIdentificador)){
+				mkdir($diretorio."_erro_data/".$tsIdentificador, 0775);
+			}
+			
+			if ($organizar=="PG"){
+				rename($diretorio."Exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador."/",$diretorio."_erro_data/".$tsIdentificador."/"); 
+			}else{
+				rename($diretorio."Exportados/".$tsIdentificador."/", $diretorio."_erro_data/".$tsIdentificador."/");
+			
+			}
+			
 		}
 			
 
-		
-		
-		//fputs($diretorio."exportados/".$programaNome."/".$tsIdentificador."contents",$contents);
+		//fputs($diretorio."Exportados/".$programaNome."/".$tsIdentificador."contents",$contents);
 		//flush();
-		//fputs($diretorio."exportados/".$programaNome."/".$tsIdentificador."dublin_core.xml",$arquivoxml);
+		//fputs($diretorio."Exportados/".$programaNome."/".$tsIdentificador."dublin_core.xml",$arquivoxml);
 		//flush();
 		
 		// inclusão de conta na tabela Contas
-		$campos_le="le_data,tsIdentificador,le_metadados,le_arquivos";
-		$inclusao_le="'$datatime','$tsIdentificador','$erro_metadados','$erro_arquivos'";
-
+		$campos_le="le_data,tsIdentificador,le_metadados,le_arquivos,le_diretorio";
+		$inclusao_le="'$datatime','$tsIdentificador','$erro_metadados','$erro_arquivos','".$diretorio."'";
+		
 		$total_le="insert into log_export ($campos_le) values ($inclusao_le)";
 		$inconteudo_le=mysql_db_query($base_fim, $total_le, $conexao_fim);
 			
@@ -1179,8 +1445,6 @@ if(!session_is_registered("VAdmin_cnCod")) {
 		$SEL_ts_RES=mysql_fetch_array($SEL_ts_query);
 
 	}
-	
-//	exit;
 	header("Location: exportar.php?e=finalizado&qtd=$id&qtd2=$qtd_erro&qtd3=$qtd_erro_metadado&qtd4=$qtd_erro_arquivo");
 	exit;
 }

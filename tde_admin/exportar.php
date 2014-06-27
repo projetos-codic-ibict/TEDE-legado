@@ -133,7 +133,7 @@ header("Location: ../index.php");
   </tr>
 
 	<tr>
-<td><span class="style1"> <span class="loginTableTitle">Exportar TDEs publicadas por programas de pós-graduação</span><strong><br>
+<td><span class="style1"> <span class="loginTableTitle">Exportar TDEs Publicadas</span><strong><br><br>
              Filtros</strong><br>
           </span>
 		  
@@ -185,7 +185,7 @@ header("Location: ../index.php");
                     </select>   </td>
                     </tr>
 				   <tr>
-                    <td><strong>Organização dos arquivos exportados:</strong></td>
+                    <td><strong>Organizar os arquivos exportados:</strong></td>
                     <td width="86%">
 					  <input type="radio" id="organizar" name="organizar" value="UN" checked="checked">Em uma única pasta.<br>
 					  <input type="radio" id="organizar" name="organizar" value="PG">Em Programa  / Grau.<br>

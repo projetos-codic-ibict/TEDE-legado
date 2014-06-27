@@ -6,6 +6,7 @@ require "../bibliotecas/urlibictbdtd.bib";
 require "../bibliotecas/idioma_sistema.bib";
 require "../bibliotecas/logos.bib";
 require "../tde_i18n/texto_".$idioma_sistema.".txt";
+
 ?>
 <head> 
 <!-- InstanceBeginEditable name="doctitle" --> 
@@ -145,7 +146,8 @@ $SEL_le_RES=mysql_fetch_array($SEL_le_query);
     <td class="txtBold"><span class="txtBold">QTD de erros de Metadados</span></td>
     <td class="txtBold"><span class="txtBold">QTD de erros de arquivos</span></td>
     <td class="txtBold"><span class="txtBold">QTD de erros totais</span></td>
-     <td class="txtBold"><span class="txtBold"></span></td>
+    <td class="txtBold"><span class="txtBold">Detalahr</span></td>
+	<td class="txtBold"><span class="txtBold">Excluir</span></td>
   </tr>
 			 <?php 
 			 while ($SEL_le_RES!="") {
@@ -166,6 +168,7 @@ $SEL_le_RES=mysql_fetch_array($SEL_le_query);
 				$le_data=$SEL_le1_RES["le_data"];
 				$le_metadados=$SEL_le1_RES["le_metadados"];
 				$le_arquivos=$SEL_le1_RES["le_arquivos"];
+				
 				
 				$qtd_erro_metadado_a=substr_count($le_metadados,";");
 				$qtd_erro_arquivo_a=substr_count($le_arquivos,";");
@@ -188,6 +191,7 @@ $SEL_le_RES=mysql_fetch_array($SEL_le_query);
     <td align="center" valign="middle" class="txtBold"><?php echo $qtd_erro_arquivo; ?></td>
     <td align="center" valign="middle" class="txtBold"><?php echo $qtd_erro_metadado+$qtd_erro_arquivo; ?></td>
     <td align="center" valign="middle" class="txtBold"><a href="detalhar_export.php?data=<?php echo $le_data; ?>" target="_blank">Detalhar</a></td>
+	<td align="center" valign="middle" class="txtBold"><a href="excluir_export.php?data=<?php echo $le_data; ?>" onClick="javascript:return confirm('Esta operação irá excluir os arquivos desta exportação. \n Deseja realmente excluir?')">Excluir</a></td>
   </tr>
 <?php  $SEL_le_RES=mysql_fetch_array($SEL_le_query); 
 } } ?>
@@ -198,11 +202,9 @@ $SEL_le_RES=mysql_fetch_array($SEL_le_query);
     <td>&nbsp;</td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
+    <td>&nbsp;</td>
   </tr>
-
-
-                    
-                </table>
+          </table>
                 
                 </td>
               </tr>

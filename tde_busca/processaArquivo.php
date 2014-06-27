@@ -7,11 +7,12 @@
 <?
   //Arquivos complementares
   //Conexao
+  require('../conexao/funcao_erro.inc');
   require "../conexao/conexao_fim.inc";
   require "../bibliotecas/ip.bib";
 
   //Recupera variavel passada por parametro
-  $codArquivo = $HTTP_GET_VARS["codArquivo"];
+  $codArquivo = $_REQUEST["codArquivo"];
 
   //Arquivos
   $query = "select arURL, arDireitos from Arquivos where arCod = $codArquivo";
@@ -67,6 +68,8 @@
   ?>
 <body>
 <?
+
+$urlArquivo=str_replace(":", "_", $urlArquivo);
 //Direciona para a URL do arquivo
 header("Location:$urlArquivo");
 ?>
