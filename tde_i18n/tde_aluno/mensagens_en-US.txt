@@ -1,0 +1,29 @@
+<?
+require "../bibliotecas/estilo_mensagens.inc";
+
+//Author
+
+// SUCCESS
+
+$s001=$eSucesso."ETD RESTARTED".$eFecha;
+$s002=$eSucesso."You will be redirected within 5 seconds to restart your ETD. If redirect fails".$eFecha;
+$s003=$eSucesso."A new ETD was created with the minimum information required.".$eFecha;
+$s004=$eSucesso."Use the operation commands on the menu to continue submssion. The button Finalize will only be available after at least 1 PDF file has been included.".$eFecha;
+$s006=$eSucesso."The ETD was submitted and will enter reviewing process by the PhB Program. From now on, your password will be locked. You will receive an e-mail from the PhD Program indicating corrections to be made and your password will be released, if necessary. You will be notified as soon as your ETD is approved.".$eFecha;
+$s007="Account released correctly.<br>An e-mail was sent with the Access account.<br><br>Contact the PhD Program for support.";
+
+// ERROR
+
+$e001=$eErro."ERROR-001 – Type already included in this ETD".$eFecha;
+$e002=$eErro."ERROR-002 – The file is not protected. Protect the file and try again.".$eFecha;
+$e003=$eErro."ERROR-003 – File Transfer Error".$eFecha;
+$e004=$eErro."ERROR-004 – Supporting Agency already registered in the system.";
+$e005=$eErro."ERROR-005 - Supporting Agency already registered in the ETD.".$eFecha;
+$e006=$eErro."ERROR-006 – Affiliation already registered in the system.".$eFecha;
+$e007=$eErro."ERROR-007 – A required field was not entered.".$eFecha;
+$e008=$eErro."The field(s) is(are):".$eFecha;
+$e009=$eErro."ERROR-009 - E-mail does not match. If error persists, contact the PhD Program.".$eFecha;
+$e010=$eErro."ERROR-010 – Name of file may not contain accented characters. Rename file and try again. If error persists, contact the System Administrator.".$eFecha;
+$e011=$eErro."ERRO-011 - Files with .PHP extension can only be sent if compressed.".$eFecha;
+$e012=$eErro."ERRO-012 - Problema de permissão na pasta tde_arquivos ou o diretório não existe e o sistema não possui permissão para criá-lo. Verique a permissão da pasta tde_arquivos e de seus subdiretórios. Contacte o responsável pela administração do sistema.".$eFecha;
+?>

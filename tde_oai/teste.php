@@ -1,0 +1,4 @@
+<?
+
+    $docTree = xmltree($myXML);
+?>

@@ -1,0 +1,3 @@
+<?
+require "../conexao/conexao.php";
+?>

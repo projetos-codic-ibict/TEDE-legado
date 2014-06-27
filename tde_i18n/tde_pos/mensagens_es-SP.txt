@@ -1,0 +1,53 @@
+<?
+require "../bibliotecas/estilo_mensagens.inc";
+//Postgrado
+// EXITO
+
+$s001=$eSucesso."Operaci&oacute;n concluida.".$eFecha;
+//Enviar TDE
+$s002=$eSucesso."Observaci&oacute;n enviada al Autor. Al finalizar las modificaciones, la TDE estar&aacute; disponible nuevamente para revisiones.".$eFecha;
+$s003=$eSucesso."TDE disponible para la Biblioteca.".$eFecha;
+$s004=$eSucesso."Campo(s) obligatorio(s) vacio(s).<br><br>El(los) campo(s) es(son):<br>".$eFecha;
+$s005=$eSucesso."TDE liberada para creaci&oacute;n de la cuenta del Autor.".$eFecha;
+$s006=$eSucesso."TDE a&ntilde;adida con informaci&oacute;nes m&iacute;nimas.".$eFecha;
+$s007=$eSucesso."Utilice los comandos de operaci&oacute;n del men&uacute; para complementar la inclusi&oacute;n de la TDE, insertando el(los) Contribuidor(es).<br><br>La cuenta del Autor s&oacute;lo podr&aacute; ser creada despu&eacute;s de la inclusi&oacute;n  del(de los) Contribuidor(es).".$eFecha;
+
+// ERROR
+//Sesi&oacute;n 
+$e000="Operaci&oacute;n no permitida!";
+$e001=$eErro."ERROR-001 - No registrado.".$eFecha;
+$e002=$eErro."ERROR-002 - ".$cnNome."<br>Iniciado en: ".$ssDataEntrada."<br>".$ssDataAtual."E-mail para contacto: ".$cnEmail;
+//Mantenimiento de  Persona Juridica
+$e003=$eErro."ERROR-003 - ".$e000." ".$RpjTipo." relacionado con alguna TDE.".$eFecha;
+//Mantenimiento de Contribuidores
+$e004=$eErro."ERROR-004 - ".$e000."<br>Contribuidor relacionado con alguna TDE".$eFecha;
+//Mantenimiento del Alumno
+$e005=$eErro."ERROR-005 - ".$e000."<br>Autor tiene una TDE iniciada".$eFecha;
+//Tipos
+$e006=$eErro."ERROR-006 - Papel ya registrado en esta TDE.".$eFecha;
+//Insertar Contribuidor del TDE
+$e007=$eErro."ERROR-007 - Contribuidor ya registrado en esta TDE.".$eFecha;
+$e020=$eErro."ERROR-020 - Papel del Orientador ya registrado en esta TDE.".$eFecha;
+//Insertar Contribuidor
+$e008=$eErro."ERROR-008 - Contribuidor ya registrado en el sistema.".$eFecha;
+$e009=$eErro."ERROR-009 - Afiliaci&oacute;n ya registrada en el sistema.".$eFecha;
+$e010=$eErro."ERROR-010 - Llenar el campo Nombre de Afiliaci&oacute;n.".$eFecha;
+//Insertar Cuentas
+$e011=$eErro."ERROR-011 - Cuenta de Autor ya registrada en el sistema.".$eFecha;
+//Insertar Alumno
+$e012=$eErro."ERROR-012 - E-mail do Autor ya registrado en el sistema.".$eFecha;
+$e013=$eErro."ERROR-013 - Nombre del Autor o Identificaci&oacute;n Personal ya registrado en el sistema.".$eFecha;
+//Insertar Agencia de Financiamiento
+$e014=$eErro."ERROR-014 - Agencia de Financiamiento ya registrada en el sistema.".$eFecha;
+//Modificar contribuidores
+$e015=$eErro."ERROR-015 - Seleccione el papel del Contribuidor.".$eFecha;
+$e016=$eErro."ERROR-016 - Ning&uacute;n Contribuidor insertado en esta TDE.".$eFecha;
+//liberar TDE
+$e017=$eErro."ERROR-017 - TDE s&oacute;lo podr&aacute; ser liberada para crear la Cuenta de Autor luego de insertar el Contribuidor con papel de orientador.".$eFecha;
+$e018=$eErro."ERROR-018 - Complete el campo Identificaci&oacute;n Personal o seleccione la opci&oacute;n Extranjero sin IP.".$eFecha;
+$e019=$eErro."ERROR-019 - El papel del contribuidor no fue seleccionado.".$eFecha;
+$e020=$eErro."ERROR-020 - Não foi poss&iacute;vel criar o diret&oacute;rio referente a essa Tese. Contacte o administrador do servidor para verificar as permissões das pastas de armazenamento das Teses do sistema TEDE conforme manual de instalação.".$eFecha;
+$e021=$eErro."ERROR-021 - Nombre ya registrado.".$eFecha;
+$e022=$eErro."ERROR-022 - Login ya registrado.".$eFecha;
+$e023=$eErro."ERROR-023 - E-mail ya registrado.".$eFecha;
+?>

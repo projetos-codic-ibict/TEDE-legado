@@ -1,0 +1,28 @@
+<?
+require "../bibliotecas/estilo_mensagens.inc";
+
+//Autor
+
+// EXITO
+$s001=$eSucesso."TDE RECOMENZADA".$eFecha;
+$s002=$eSucesso."Dentro de 5 segundos usted será redireccionado para recomenzar su TDE. Puede ser que el redirecionamento demore".$eFecha;
+$s003=$eSucesso."Un nuevo TDE fue creada con la información mínima.".$eFecha;
+$s004=$eSucesso."Utilice los comandos de operación del menú para continuar el envío. El link Finalizar Envío sólo estará disponible cuando inserte por lo menos un archivo PDF.".$eFecha;
+$s006=$eSucesso."Un TDE fue enviada y entrará en fase de revisión por el Departamento de Postgrado. A partir de este momento, su cuenta estará bloqueada. En caso de que haya algún problema, usted recibirá un e-mail del Departamento de Postgrado indicando las correcciones a ser realizadas y su cuenta será nuevamente habilitada. En caso de que su TDE fuera aprobada, usted será informado.".$eFecha;
+$s007="Cuenta desbloqueada correctamente.<br>Fue enviado a su e-mail una cuenta de acceso al sistema.<br><br>Cualquier duda, comuníquese con el Departamento de Postgrado.";
+
+// ERROR
+
+$e001=$eErro."ERRO-001 - Tipo ya registrado en esta TDE".$eFecha;
+$e002=$eErro."ERRO-002 - El archivo no está protegido. Por favor, proteja el archivo e intente anexarlo nuevamente.".$eFecha;
+$e003=$eErro."ERRO-003 - Error en el envío del archivo".$eFecha;
+$e004=$eErro."ERRO-004 - La Agencia de Financiamiento ya está registrada en el sistema.";
+$e005=$eErro."ERRO-005 - La Agencia de Financiamiento ya está registrada en esta TDE.".$eFecha;
+$e006=$eErro."ERRO-006 - La Afiliación ya está registrada en el sistema.".$eFecha;
+$e007=$eErro."ERRO-007 - Algún campo obligatorio no fue completado.".$eFecha;
+$e008=$eErro."El(Los) campo(s) es(son):".$eFecha;
+$e009=$eErro."ERRO-009 - E-mail no responde. Si ese error persiste, por favor, comuníquese con el Departamento de Postgrado.".$eFecha;
+$e010=$eErro."ERRO-010 - El nombr del archivo nó puede contener caracteres accentuados. Renombre el archivo y intente nuevamente. Persistiendo errores, entre en contacto con la Administración del sistema.".$eFecha;
+$e011=$eErro."ERRO-011 - Solo és posible el envio de archivo(s) .PHP si fué(ron) compactado(s).".$eFecha;
+$e012=$eErro."ERRO-012 - Problema de permissão na pasta tde_arquivos ou o diretório não existe e o sistema não possui permissão para criá-lo. Verique a permissão da pasta tde_arquivos e de seus subdiretórios. Contacte o responsável pela administração do sistema.".$eFecha;
+?>

@@ -1,0 +1,15 @@
+<?
+
+require "../bibliotecas/estilo_mensagens.inc";
+
+//Library
+
+// Finalize
+//Messages
+$m001="Forward ETD with observation to PhD Program.";
+$m002="Make ETD available for public access.<br>After publication this ETD will no longer be editable.";
+
+//Success
+$s001=$eSucesso."ETD HAS BEEN PUBLISHED".$eFecha;
+
+?>

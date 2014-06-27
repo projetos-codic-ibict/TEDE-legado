@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<info>
+	<infoitem key="notes" value="7/7/03: &#xD;marcio,&#xD;&#xD;os menu tem 2 estatus:&#xD;.subMenuOver&#xD;.subMenuOut&#xD;&#xD;só precisa usar esses dois&#xD;&#xD;o estilo subMenu, e os outros com o nome da seção, são só pro fundo do menu... mané..." />
+	<infoitem key="status" value="needs attention" />
+</info>

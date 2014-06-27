@@ -1,0 +1,53 @@
+<?
+require "../bibliotecas/estilo_mensagens.inc";
+//PhD
+// SUCCESS
+
+$s001=$eSucesso."Operation accomplished.".$eFecha;
+//Envia TDE
+$s002=$eSucesso."Observation sent to Author. The ETD will be available again for review after changes are made.".$eFecha;
+$s003=$eSucesso."ETD available to Library.".$eFecha;
+$s004=$eSucesso."Required Field(s) not entered.<br><br>The field(s) is(are):<br>".$eFecha;
+$s005=$eSucesso."ETD released for Author Account creation.".$eFecha;
+$s006=$eSucesso."ETD included with minimum required information.".$eFecha;
+$s007=$eSucesso." Use the operation commands on the menu to improve the ETD submission by adding Contributor(s).<br><br>The Author Account will only be created after the inclusion of the Contributor(s).".$eFecha;
+
+// ERROR
+//Session
+$e000="Forbidden Operation!";
+$e001=$eErro."ERROR-001 – Not registered.".$eFecha;
+$e002=$eErro."ERROR-002 - ".$cnNome."<br>Started on: ".$ssDataEntrada."<br>".$ssDataAtual."Contact e-mail: ".$cnEmail;
+//Maintenance of Juris Personnae
+$e003=$eErro."ERROR-003 - ".$e000." ".$RpjTipo." already related to an ETD.".$eFecha;
+//Maintenance of Contributors
+$e004=$eErro."ERROR-004 - ".$e000."<br>Contributor already related to na ETD".$eFecha;
+//Maintenance Author
+$e005=$eErro."ERROR-005 - ".$e000."<br>Author ETD started".$eFecha;
+//Types
+$e006=$eErro."ERROR-006 – Role already included in ETD.".$eFecha;
+//Insert Contributor ETD
+$e007=$eErro."ERROR-007 - Contributor already included in ETD.".$eFecha;
+$e020=$eErro."ERROR-020 – Advisor Role already included in ETD.".$eFecha;
+//Inserir Contributor
+$e008=$eErro."ERROR-008 - Contributor already included in the system.".$eFecha;
+$e009=$eErro."ERROR-009 – Affiliation already included in the system.".$eFecha;
+$e010=$eErro."ERROR-010 – Name of Affiliation field required.".$eFecha;
+//Insert Accounts
+$e011=$eErro."ERROR-011 – Author Account already registered in the system.".$eFecha;
+//Inserir Aluno
+$e012=$eErro."ERROR-012 - Author E-mail already registered in the system.".$eFecha;
+$e013=$eErro."ERROR-013 – Author SSN already registered in the system.".$.".$eFecha;
+//Insert Supporting Agency
+$e014=$eErro."ERROR-014 - Supporting Agency already registered in the system.".$eFecha;
+//Alter contributors
+$e015=$eErro."ERROR-015 – Select Contributor role.".$eFecha;
+$e016=$eErro."ERROR-016 – No Contributor included in ETD.".$eFecha;
+//release ETD
+$e017=$eErro."ERROR-017 - ETD will only be released for creation of Author Account after Advisos has been included.".$eFecha;
+$e018=$eErro."ERROR-018 – Enter SSN or choose option Foreigner Without SSN.".$eFecha;
+$e019=$eErro."ERROR-019 – Role of contributor was not selected.".$eFecha;
+$e020=$eErro."ERROR-020 - Unable to create folder for this Thesis. Contact the server administrator to check folder permissions in verificar Thesis folder of the TEDE system according to the instalation manual.".$eFecha;
+$e021=$eErro."ERROR-021 - Name already registered.".$eFecha;
+$e022=$eErro."ERROR-022 - Login already registered.".$eFecha;
+$e023=$eErro."ERROR-023 - E-mail already registered.".$eFecha;
+?>

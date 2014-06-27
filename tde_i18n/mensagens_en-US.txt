@@ -1,0 +1,25 @@
+<?
+require "../bibliotecas/estilo_mensagens.inc";
+
+//General System Messages
+
+// SUCCESS
+
+$sg001=$eSucesso."Operation accomplished.".$eFecha;
+
+// ERROR
+
+$eg001=$eErro."GENERAL-ERROR-001 - Forbidden Operation.".$eFecha;
+//Login do sistema
+$eg002=$eErro."GENERAL-ERROR-002 - Invalid password! Try again".$eFecha;
+$eg003=$eErro."GENERAL-ERROR-003 - Invalid Account. </br>Try again".$eFecha;
+$eg004=$eErro."GENERAL-ERROR-004 - Invalid Login. Enter correct Account Login and password".$eFecha;
+$eg005=$eErro."GENERAL-ERROR-005 - Account is locked. Program status inactive.<br> Contact the System Administrator for support.".$eFecha;
+$eg006=$eErro."GENERAL-ERROR-006 - Account Login not registered or invalid. </br>Try again".$eFecha;
+$eg007=$eErro."GENERAL-ERROR-007 - ATTENTION: Password is locked. <br>Contact the Postgraduate Service!".$eFecha;
+$eg008=$eErro."GENERAL-ERROR-008 - Your account will be unlocked on ".$cnDataInicio."<br> Contact the Postgraduate Service.".$eFecha;
+$eg009=$eErro."GENERAL-ERROR-009 - Your account has expired since ".$cnDataTermino."<br> Contact the Postgraduate Service.".$eFecha;
+$eg010=$eErro."GENERAL-ERROR-010 - Account E-mail not entered. Enter correct account e-mail and password provided by your Postgraduate Service.".$eFecha;
+$eg011=$eErro."GENERAL-ERROR-011 - Account is locked. Library is inactive. <br> Contact the System Administrator for support.".$eFecha;
+$eg012=$eErro."GENERAL-ERROR-012 - Invalid password. Try again.".$eFecha;
+?>

@@ -1,0 +1,1 @@
+<? $diretorio_layout="../tde_layout1/"; $diretorio_layout_index="tde_layout1/"; ?>

@@ -1,0 +1,40 @@
+<?
+require "../bibliotecas/estilo_mensagens.inc";
+//Administration
+
+// SUCCESS
+
+$s001=$eSucesso."Operation accomplished.".$eFecha;
+//Maintenance Institution
+$s002=$eSucesso."System Institution included.".$eFecha;
+//email
+$s003=$eSucesso."Message has been sent.".$eFecha;
+//Account Maintenance
+$s004=$eSucesso.$cnTipo." Account created.".$eFecha;
+
+// ERROR
+
+$e001=$eErro."ERROR-001 - Operação não permitida.".$eFecha;
+//Login do sistema
+$e002=$eErro."ERROR-002 – Invalid Password! Try again".$eFecha;
+$e003=$eErro."ERROR-003 – Account Name is Invalid or not registered. </br>Try again.".$eFecha;
+$e004=$eErro."ERROR-004 - Account Name not informed. Enter Account Name and password.".$eFecha;
+//Institution Maintenance 
+$e005=$eErro."ERROR-005 - Institution already registered.".$eFecha;
+// Digital Library Maintenance 
+$e006=$eErro."ERROR-006 - Digital Library already registered.".$eFecha;
+//Publishing Library Maintenance
+$e007=$eErro."ERROR-007 - Publishing Library Biblioteca Depositária already registered.".$eFecha;
+$e008=$eErro."ERROR-008 – Forbidden Operation!<br>A PhD Program is already related to the Library.".$eFecha;
+// PhD program Maintenance  
+$e009=$eErro."ERROR-009 - PhD Program already registered.".$eFecha;
+$e010=$eErro."ERROR-010 - Forbidden Operation!<br>An ETD related to this Program is in submission processo.".$eFecha;
+//Account Maintenance
+$e011=$eErro."ERROR-011 – ".$cnTipo." Account already registered with same Name, Login and e-mail.".$eFecha;
+// Contact Maintenance 
+$e012=$eErro."ERROR-012 - Contact already registered.".$eFecha;
+$e013=$eErro."ERROR-013 – File transfer was not concluded ".$eFecha;
+$e014=$eErro."ERROR-014 – File must be in JPG format".$eFecha;
+$e015=$eErro."ERROR-015 - File must be in GIF format ".$eFecha;
+$e016=$eErro."ERROR-016 - Unable to create program folder. Contact the server administrator to perform folder permission changes in TEDE system according to the instalation manual.".$eFecha;
+?>

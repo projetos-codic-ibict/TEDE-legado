@@ -1,0 +1,37 @@
+.menuAluno { font-family: Verdana, Arial, Helvetica, Tahoma, sans-serif; font-size: 7pt; 
+			 font-style: normal; font-weight: bold; font-variant: normal; text-transform: uppercase; 
+			 color: #FFFFFF; text-decoration: none; background-color: #0090C5;
+		   }
+.subMenuAluno { font-family: Verdana, Arial, Helvetica, Tahoma, sans-serif; font-size: 7pt; 
+				font-style: normal; font-weight: bold; font-variant: normal; text-transform: none;
+				color: #000000; text-decoration: none; background-color: #E3EBEE;
+			  }			  
+.tituloAluno { font-family: Verdana, Arial, Helvetica, Tahoma, sans-serif; font-size: 8pt; 
+			   font-style: normal; line-height: normal; font-weight: bold; font-variant: normal;
+			   text-transform: none; color: #9BDCF4; text-decoration: none; letter-spacing: normal;
+			   text-align: center; vertical-align: middle; word-spacing: normal; 
+			   background-attachment: fixed; background-repeat: repeat; background-position: left top; 
+			 }
+.loginAutor {
+				font-family: Verdana, Arial, Helvetica, Tahoma, sans-serif; font-size: 12pt; 
+				font-style: normal; font-weight: bold; font-variant: normal; text-transform: none; 
+				color: #0090C5; text-decoration: none; line-height: normal;
+			}			 
+.tdAluno { background-color: #E4F3F9; }
+.tdAlternado { background-color: #FFFDE0; }
+.tdObs { background-color: #CEF4FF;}
+.botaoTD {
+	background-image: url(../imagens/bttn_bg.gif);
+	background-repeat: repeat;
+	border: 1px solid #000000;
+}
+.botaoTDOver {
+	background-image: url(../imagens/bttn_bg1.gif);
+	background-repeat: repeat;
+	border: 1px solid #000000;
+}
+.tdConteudo {
+	border-left-width: 1px;
+	border-left-style: solid;
+	border-left-color: #000000;
+}

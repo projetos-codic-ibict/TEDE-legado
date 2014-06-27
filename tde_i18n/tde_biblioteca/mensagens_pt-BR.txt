@@ -1,0 +1,15 @@
+<?
+
+require "../bibliotecas/estilo_mensagens.inc";
+
+//Biblioteca
+
+// Finalizar
+//Mensagens
+$m001="Enviar TDE com observação para a Pós-graduação.";
+$m002="Disponibilizar TDE para acesso público.";
+
+//Sucesso
+$s001=$eSucesso."TDE DISPONIBILIZADA".$eFecha;
+
+?>

@@ -1,0 +1,89 @@
+<?
+// ################################ ADMINISTRACAO ##################################
+//Envio da senha da conta de Administrador do sistema
+//Arquivo envia_conta_admin.inc >> tde_admin/bibliotecas Linha 26
+$emTituloEnviaContaAdmin="Solicitação de envio de senha da sua conta de Administrador TEDE - ".$data."";
+$emMensagemEnviaContaAdmin= "Sr(a) ".$cnNome.", no dia ".$data." foi solicitado o envio da senha de sua conta de Administrador do sistema TEDE. \n\n Login: ".$cnLogin."\n Senha: ".$cnSenha."\nStatus: ".$cnBloqueado."\n\n Acesse o Link : ".$LinkLogin."\n\n Qualquer dúvida procure o responsável pela administração do sistema TEDE.\n\n";
+
+//Envio de e-mail do módulo contato
+//Arquivo envia_email.inc >> tde_admin/bibliotecas Linha 10
+$emTituloContato="Envio do modulo Contato em ".$Data;
+$emMensagemContato="No dia ".$Data." o Sr(a) ".$ctNomeUsuario." enviou um e-mail pelo sistema TDE\nAssunto: ".$ctAssuntoUsuario."\nTexto: ".$ctTextoUsuario."\n\n";
+
+//Envio da conta de CADASTRO de Catalogador, Pos e Administrador
+//Arquivo manutencao_contas.inc >> tde_admin/bibliotecas Linha 95
+$emTituloConta="Cadastro da conta de ".$cnTipo." do sistema de Teses e Dissertações - ".$Data;
+$emMensagemConta="Sr(a) ".$cnNome.",\nno dia ".$Data." você foi cadastrado para acessar o módulo de ".$cnTipo." do sistema TEDE.\nSeu Login de acesso é ".$cnLogin." e senha ".$cnSenha."\n\nQualquer dúvida entre em contado com o administrador do sistema";
+
+//Envio da conta de ALTERAÇÃO de Catalogador, Pos e Administrador
+//Arquivo manutencao_contas.inc >> tde_admin/bibliotecas Linha 136
+$emTituloConta1="Alteração no cadastro da conta de ".$cnTipo." do sistema de Teses e Dissertações - ".$Data;
+$emMensagemConta1="Sr(a) ".$cnNome.",\nno dia ".$Data." foi alterado seu cadastrado de acesso ao módulo de ".$cnTipo." do sistema TEDE.\nSeu Login de acesso é ".$cnLogin." e senha ".$cnSenha."\n\nQualquer dúvida entre em contado com o administrador do sistema";
+
+//Envio da conta de EXCLUSÃO de Catalogador, Pos e Administrador
+//Arquivo manutencao_contas.inc >> tde_admin/bibliotecas Linha 165
+$emTituloConta2="Exclusão da conta de ".$cnTipo." do sistema de Teses e Dissertações - ".$Data;
+$emMensagemConta2= "Sr(a) ".$cnNome.",\nno dia ".$Data." seu cadastrado de acesso ao módulo de ".$cnTipo." do sistema TEDE foi excluído.\n\nQualquer dúvida entre em contado com o administrador do sistema";
+
+// #############################    POS     #####################################
+//Envio da senha da conta de Pos-graduacao 
+//Arquivo envia_conta_pos.inc >> tde_pos/bibliotecas Linha 26
+$emTituloEnviaContaPos="Solicitação de envio de senha da sua conta de Pós-graduação TEDE - ".$data."";
+$emMensagemEnviaContaPos= "No dia ".$data." foi solicitado o envio da senha de sua conta de Pós-graduação do sistema TEDE. \n\n Login: ".$cnLogin."\n Senha: ".$cnSenha."\nStatus: ".$cnBloqueado."\n\n Acesse o Link : ".$LinkLogin."\n\n Qualquer dúvida procure o responsável pelo serviço de pós graduação de seu programa.\n\n";
+
+//Envio de ALTERAÇÃO da conta do AUTOR 
+//Arquivo manutencao_contas.inc >> tde_pos/bibliotecas Linha 43
+$emTituloContaPos="Alteração na sua conta para submissão de Tese ou Dissertação -".$DataAtualizacao."";
+$emMensagemContaPos= "No dia ".$DataAtualizacao." sua conta para submissão de sua Tese ou Dissertação foi alterada. \n\n E-mail: ".$cnEmail."\n Senha:".$cnSenha."\n\n Acesse o Link : ".$LinkSubmissao."\n\n Qualquer dúvida procure o responsável pelo serviço de pós graduação de seu programa.\n\n";
+
+//Envio da conta do AUTOR PARA desbloqueio
+//Arquivo inserir_contas.inc >> tde_pos/bibliotecas Linha 55
+$emTituloContaInserirPos="Sua conta para submissao de Tese ou Dissertação(TDE) -".$DataAtualizacao."";
+$emMensagemContaInserirPos="No dia ".$DataAtualizacao." sua conta foi criada para submissão de sua Tese ou Dissertação(TDE). \n\nPara receber a senha de acesso ao sistema, que permitirá o inicio da submissão, basta confirmar o recebimento deste e-mail acessando o Link abaixo: \n\n".$LinkSubmissao."\n\nQualquer dúvida procure o responsável pelo serviço de pós graduação de seu programa.\n\n";
+
+//Envio da conta do AUTOR 
+//Arquivo enviar_conta_aluno.php >> tde_pos Linha 31
+$emTituloContaAutorPos="Sua conta para submissao de Tese ou Dissertação(TDE) -".$data_atual."";
+$emMensagemContaAutorPos= "No dia ".$data_atual." sua conta foi enviada para submissão de sua Tese ou Dissertação(TDE). \n\nPara você iniciar a submissão basta ter em mãos as seguintes informações: \n\nE-mail: ".$e."\nSenha: ".$s."\n\nAcesse o Link : ".$LinkSubmissao."\n\n Caso sua senha esteja bloqueada, confirme o recebimento deste e-mail acessando o link abaixo:\n\n".$LinkDesbloqueio."\n\nQualquer dúvida procure o responsável pelo serviço de pós graduação de seu programa.\n\n";
+
+//Envio de e-mail para CATALOGAÇÃO
+//Arquivo enviar_catalogar_obs_tde.php >> tde_pos Linha 215
+$emTituloCatalogar="Recebimento de TDE para catalogar - ".$data_atual;
+$emMensagemCatalogar="No dia ".$data_atual." a Pós-Graduação ".$prNome." submeteu uma Tese ou Dissertação  para catalogar. \n\nPara facilitar o acesso : ".$LinkCatalogacao."\n\n";
+
+//Envio de OBS para AUTOR
+//Arquivo enviar_catalogar_obs_tde.php >> tde_pos Linha 254
+$emTituloOBSPos=".:: Existe observação em sua TDE -".$DataAtualizacao." ::.";
+$emMensagemOBSPos="No dia ".$DataAtualizacao." sua TDE foi revisada e existe uma observação. \n\nPara você acessar sua TDE entre com seu E-mail e a senha no endereço: ".$LinkSubmissao."\n\nQualquer dúvida procure o responsável pelo serviço de pós-graduação de seu programa.\n\n";
+
+// ############################# BIBLIOTECA #####################################
+//Envio da senha da conta de Biblioteca 
+//Arquivo envia_conta_pos.inc >> tde_bib/bibliotecas Linha 26
+$emTituloEnviaContaBib="Solicitação de envio de senha da sua conta de Catalogador(a) TEDE - ".$data."";
+$emMensagemEnviaContaBib= "No dia ".$data." foi solicitado o envio da senha de sua conta de Catalogador(a) do sistema TEDE. \n\n Login: ".$cnLogin."\n Senha: ".$cnSenha."\nStatus: ".$cnBloqueado."\n\n Acesse o Link : ".$LinkLogin."\n\n Qualquer dúvida procure o responsável pelo serviço de pós graduação de seu programa.\n\n";
+
+//Envio de OBS para Pós
+//Arquivo finalizar.php >> tde_biblioteca Linha 167
+$emTituloFinalizar="Recebimento de TDE para revisar da catalogação - ".$data_atual;
+$emMensagemFinalizar= "No dia ".$data_atual." o Catalogador ".$cnNomeC." (".$cnEmailC.") submeteu TDE do Autor: ".$cnNome." para revisar. \n\nPara facilitar o acesso : ".$LinkSubmissao."\n\nQualquer problema entre em contato com o Administrador do sistema.\n\n";
+
+//Envio de menssagem de TDE PUBLICADA ao AUTOR
+//Arquivo finalizar.php >> tde_biblioteca Linha 403
+$emTituloFinalizar2=".:: Sua TDE foi publicada -".$DataAtualizacao." ::.";
+$emMensagemFinalizar2="No dia ".$tsDataSubmissao." sua TDE foi publicada. \n\nPara você acessar sua TDE acesse o endereço: ".$LinkSubmissao."\n\nQualquer dúvida procure o responsável pelo serviço de pós-graduação de seu programa.\n\n";
+
+//################################# AUTOR ######################################
+//Arquivo envia_conta_autor.inc >> tde_aluno/bibliotecas Linha 26
+$emTituloEnviaContaAutor="Solicitação de envio de senha da sua conta de Autor TEDE - ".$data."";
+$emMensagemEnviaContaAutor= "No dia ".$data." foi solicitado o envio da senha de sua conta de Autor do sistema TEDE. \n\n E-mail: ".$cnEmail."\n Senha: ".$cnSenha."\n\nData inicial de publicação: ".$cnDataInicio."\nData limite para publicação: ".$cnDataTermino."\n".$txContaExpiradaSim."\nStatus: ".$cnBloqueado."\n\nAcesse o Link : ".$LinkLogin."\n\n Qualquer dúvida procure o responsável pelo serviço de pós graduação de seu programa.\n\n";
+
+//Envio para Pós REVISAR
+//Arquivo finalizar.php >> tde_autor Linha 225
+$emTituloFinalizarAutor="Recebimento de TDE para revisar - ".$data_atual;
+$emMensagemFinalizarAutor= "No dia ".$data_atual." o Autor da Tese ou Dissertação ".$cnNome." submeteu sua TDE para revisar. \n\nPara facilitar o acesso : ".$LinkSubmissao."\n\nQualquer problema entre em contato com o Administrador do sistema.\n\n";
+
+//Envio da Senha da conta do Autor
+//Arquivo confirma_conta.php >> tde_autor Linha 120
+$emTituloConfirmaConta="Sua conta para submissao de Tese ou Dissertação - ".$data_atual;
+$emMensagemConfirmaConta= "No dia ".$data_atual." sua conta foi desbloqueada para a submissão de sua Tese ou Dissertação. \n\n Para você iniciar a submissão basta ter em mãos as seguintes informações: \n\n E-mail: ".$cnEmail."\n Senha: ".$cnSenha."\n\n Acesse o Link : ".$LinkSubmissao."\n\n Qualquer dúvida procure o responsável pelo serviço de pós graduação de seu programa.\n\n";
+?>

@@ -1,0 +1,53 @@
+<?
+require "../bibliotecas/estilo_mensagens.inc";
+//Pós Graduação
+// SUCESSO
+
+$s001=$eSucesso."Operação concluída.".$eFecha;
+//Envia TDE
+$s002=$eSucesso."Observação enviada ao Autor. Ao finalizar as alterações, a TDE estará disponível novamente para revisão.".$eFecha;
+$s003=$eSucesso."TDE disponível para a Biblioteca.".$eFecha;
+$s004=$eSucesso."Campo(s)obrigatório(s) não preenchido(s).<br><br>O(s) campo(s) é(são):<br>".$eFecha;
+$s005=$eSucesso."TDE liberada para a criação da conta do Autor.".$eFecha;
+$s006=$eSucesso."TDE inserida com as informações mínimas.".$eFecha;
+$s007=$eSucesso."Utilize os comandos de operação do menu para complementar a inclusão da TDE, inserindo o(s) Contribuidor(es).<br><br>A conta do Autor só poderá ser criada após a inclusão do(s) Contribuidor(es).".$eFecha;
+
+// ERRO
+//Sessão
+$e000="Operação não permitida!";
+$e001=$eErro."ERRO-001 - Não cadastrado.".$eFecha;
+$e002=$eErro."ERRO-002 - ".$cnNome."<br>Iniciado em: ".$ssDataEntrada."<br>".$ssDataAtual."Email para contato: ".$cnEmail;
+//Manutenção Pessoa Jurídica
+$e003=$eErro."ERRO-003 - ".$e000." ".$RpjTipo." relacionado com alguma TDE.".$eFecha;
+//Manutenção Contribuidores
+$e004=$eErro."ERRO-004 - ".$e000."<br>Contribuidor relacionado com alguma TDE".$eFecha;
+//Manutenção Aluno
+$e005=$eErro."ERRO-005 - ".$e000."<br>Autor tem TDE iniciada".$eFecha;
+//Tipos
+$e006=$eErro."ERRO-006 - Papel já cadastrado nesta TDE.".$eFecha;
+//Inserir Contribuidor TDE
+$e007=$eErro."ERRO-007 - Contribuidor já cadastrado nesta TDE.".$eFecha;
+$e020=$eErro."ERRO-020 - Papel de Orientador já cadastrado nesta TDE.".$eFecha;
+//Inserir Contribuidor
+$e008=$eErro."ERRO-008 - Contribuidor já cadastrado no sistema.".$eFecha;
+$e009=$eErro."ERRO-009 - Afiliação já cadastrada no sistema.".$eFecha;
+$e010=$eErro."ERRO-010 - Preencher o campo Nome de Afiliação.".$eFecha;
+//Inserir Contas
+$e011=$eErro."ERRO-011 - Conta do Autor já cadastrada no sistema.".$eFecha;
+//Inserir Aluno
+$e012=$eErro."ERRO-012 - E-mail do Autor já cadastrado no sistema.".$eFecha;
+$e013=$eErro."ERRO-013 - CPF de Autor já cadastrado no sistema.".$eFecha;
+//Inserir Ag Fomento
+$e014=$eErro."ERRO-014 - Agência de Fomento já cadastrada no sistema.".$eFecha;
+//Alterar contribuidores
+$e015=$eErro."ERRO-015 - Selecione o papel do Contribuidor.".$eFecha;
+$e016=$eErro."ERRO-016 - Nenhum Contribuidor inserido nesta TDE.".$eFecha;
+//liberar TDE
+$e017=$eErro."ERRO-017 - TDE só poderá ser liberada para criação da Conta do Autor após a inserção de Contribuidor no papel de orientador.".$eFecha;
+$e018=$eErro."ERRO-018 - Preencha o campo CPF ou selecione a opção Estrangeiro sem CPF.".$eFecha;
+$e019=$eErro."ERRO-019 - O papel do contribuidor não foi selecionado.".$eFecha;
+$e020=$eErro."ERRO-020 - Não foi possível criar o diretório referente a essa Tese. Contacte o administrador do servidor para verificar as permissões das pastas de armazenamento das Teses do sistema TEDE conforme manual de instalação.".$eFecha;
+$e021=$eErro."ERRO-021 - Nome já cadastrado.".$eFecha;
+$e022=$eErro."ERRO-022 - Login já cadastrado.".$eFecha;
+$e023=$eErro."ERRO-023 - E-mail já cadastrado.".$eFecha;
+?>

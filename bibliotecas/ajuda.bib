@@ -1,0 +1,177 @@
+<?
+//Biblioteca de manutencao dos links do ajuda(Help) do sistema TEDE
+//Recebe a URL completa da requisição do ajuda
+require "../bibliotecas/servidor.bib";
+require "../bibliotecas/idioma_sistema.bib";
+if ($pagina_referencia) {
+//Filtra o nome da pagina de requisição (sem o caminho e sem o .php)
+$pagina_referencia_split=split($servidor_diretorio.'tde_',$pagina_referencia);
+$pagina_referencia_split2=split('/',$pagina_referencia_split[1]);
+$pagina_referencia_split3=split('\.',$pagina_referencia_split2[1]);
+$pagina_referencia=$pagina_referencia_split3[0];
+//Tratar quando pagina vier de pessoa_juridica(Afiliacao e Agencia de Fomento)
+if ($pagina_referencia=="editar_pessoajuridica" or $pagina_referencia=="excluir_pessoajuridica") {
+$pagina_referencia_split4=split("pjTipo=",$pagina_referencia_split3[1]);
+$pagina_referencia_split5=split("&",$pagina_referencia_split4[1]);
+if ($pagina_referencia=="editar_pessoajuridica"){
+$tipo_pg="editar";
+}else{
+$tipo_pg="excluir";
+}
+if ($pagina_referencia_split5[0]=="Afiliacao") {
+$pagina_referencia=$tipo_pg."_afiliacao";
+}else {
+$pagina_referencia=$tipo_pg."_agfomento";
+}
+}
+}
+//Direciona conforme requisição
+//######################## INDEX #############################
+if ($pagina_referencia_split2[0]=="") {
+$pagina_referencia="index";
+switch ($pagina_referencia) {
+case index: header("Location:../tde_ajuda/$idioma_sistema/tde_index/indisponivel.php"); break;
+}
+}
+//######################## ADMINISTRACAO #############################
+if ($pagina_referencia_split2[0]=="admin") {
+switch ($pagina_referencia) {
+case al: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/indisponivel.php"); break;
+case alterar_expiracao: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/alterar_expiracao.php"); break;
+case alterar_idioma: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/indisponivel.php"); break;
+case alterar_layout: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/alterar_layout.php"); break;
+case alterar_servidor_diretorio: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/alterar_servidor_diretorio.php"); break;
+case alterar_servidor_email: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/alterar_servidor_email.php"); break;
+case biblioteca_depositaria: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/indisponivel.php"); break;
+case biblioteca_digital: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/indisponivel.php"); break;
+case colocar_logo: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/colocar_logo.php"); break;
+case configurar_login_admin: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/indisponivel.php"); break;
+case conta_admin: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/conta_admin.php"); break;
+case conta_catalogador: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/conta_catalogador.php"); break;
+case conta_pos: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/conta_pos.php"); break;
+//###################### MODULO CONTATO ########################
+case contato: header("Location:../tde_ajuda/$idioma_sistema/tde_contato/contato.php"); break;
+//#################### FIM MODULO CONTATO ######################
+case editar_bib: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/editar_bib.php"); break;
+case editar_bib_dig: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/editar_bib_dig.php"); break;
+case editar_conta_admin: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/editar_conta_admin.php"); break;
+case editar_conta_cat: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/editar_conta_cat.php"); break;
+case editar_conta_pos: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/editar_conta_pos.php"); break;
+case editar_contato: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/editar_contato.php"); break;
+case editar_inst: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/editar_inst.php"); break;
+case editar_prog: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/editar_prog.php"); break;
+case excluir_bib: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/excluir_bib.php"); break;
+case excluir_conta_admin: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/excluir_conta_admin.php"); break;
+case excluir_conta_cat: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/excluir_conta_cat.php"); break;
+case excluir_conta_pos: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/excluir_conta_pos.php"); break;
+case excluir_contato: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/excluir_contato.php"); break;
+case excluir_prog: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/excluir_prog.php"); break;
+case inserir_bib: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/inserir_bib.php"); break;
+case inserir_bib_dig: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/inserir_bib_dig.php"); break;
+case inserir_contato: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/inserir_contato.php"); break;
+case inserir_inst: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/inserir_inst.php"); break;
+case inserir_prog: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/inserir_prog.php"); break;
+case instituicao: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/indisponivel.php"); break;
+case login: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/login.php"); break;
+case programas: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/indisponivel.php"); break;
+case tde_admin: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/tde_admin.php"); break;
+case visualizar_al: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/indisponivel.php"); break;
+case visualizar_bib: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/visualizar_bib.php"); break;
+case visualizar_bib_dig: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/visualizar_bib_dig.php"); break;
+case visualizar_contas_admin: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/visualizar_contas_admin.php"); break;
+case visualizar_contas_cat: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/visualizar_contas_cat.php"); break;
+case visualizar_contas_pos: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/visualizar_contas_pos.php"); break;
+case visualizar_contato: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/visualizar_contato.php"); break;
+case visualizar_inst: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/visualizar_inst.php"); break;
+case visualizar_prog: header("Location:../tde_ajuda/$idioma_sistema/tde_admin/visualizar_prog.php"); break;
+}
+}
+//######################## Biblioteca  #############################
+if ($pagina_referencia_split2[0]=="biblioteca") {
+switch ($pagina_referencia) {
+case alterar_contribuidores: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/indisponivel.php"); break;
+case alterar_login: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/indisponivel.php"); break;
+case alterar_tde: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/indisponivel.php"); break;
+case disponibilidade_tde: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/indisponivel.php"); break;
+case editar_afiliacao: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/indisponivel.php"); break;
+case editar_agfomento: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/indisponivel.php"); break;
+case editar_aluno: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/indisponivel.php"); break;
+case editar_assunto_tde: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/editar_assunto_tde.php"); break;
+case editar_cobertura_tde: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/editar_cobertura_tde.php"); break;
+case editar_contribuidores: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/indisponivel.php"); break;
+case excluir_alunos: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/indisponivel.php"); break;
+case excluir_assunto_tde: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/excluir_assunto_tde.php"); break;
+case excluir_cobertura_tde: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/excluir_cobertura_tde.php"); break;
+case excluir_contribuidores: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/indisponivel.php"); break;
+case excluir_afiliacao: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/indisponivel.php"); break;
+case excluir_agfomento: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/indisponivel.php"); break;
+case excluir_tde: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/indisponivel.php"); break;
+case excluir_tde_publicada: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/indisponivel.php"); break;
+case finalizar: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/finalizar.php"); break;
+case iniciar_tde: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/indisponivel.php"); break;
+case inserir_afiliacao: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/indisponivel.php"); break;
+case inserir_agfomento: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/indisponivel.php"); break;
+case inserir_aluno: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/indisponivel.php"); break;
+case editar_areaCNPQ_tde: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/indisponivel.php"); break;
+case inserir_arquivo: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/indisponivel.php"); break;
+case inserir_assunto_tde: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/inserir_assunto_tde.php"); break;
+case inserir_cobertura_tde: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/inserir_cobertura_tde.php"); break;
+case inserir_contribuidores: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/indisponivel.php"); break;
+case inserir_contribuidores_tde: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/indisponivel.php"); break;
+case inserir_tipos: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/indisponivel.php"); break;
+case login: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/login.php"); break;
+case tde_bib: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/tde_bib.php"); break;
+case tde_pos: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/indisponivel.php"); break;
+case visualizar_afiliacao: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/indisponivel.php"); break;
+case visualizar_agfomento: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/indisponivel.php"); break;
+case visualizar_alunos: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/indisponivel.php"); break;
+case visualizar_assunto_tde: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/visualizar_assunto_tde.php"); break;
+case visualizar_cobertura_tde: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/visualizar_cobertura_tde.php"); break;
+case visualizar_contribuidores: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/indisponivel.php"); break;
+case visualizar_tde: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/indisponivel.php"); break;
+case visualizar_tde_excluir: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/indisponivel.php"); break;
+case visualizar_tde_iniciadas: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/indisponivel.php"); break;
+case visualizar_tde_publicada: header("Location:../tde_ajuda/$idioma_sistema/tde_biblioteca/indisponivel.php"); break;
+}
+}
+//######################## BUSCA         #############################
+if ($pagina_referencia_split2[0]=="busca") {
+switch ($pagina_referencia) {
+case arquivo: header("Location:../tde_ajuda/$idioma_sistema/tde_busca/indisponivel.php"); break;
+case geraEmail: header("Location:../tde_ajuda/$idioma_sistema/tde_busca/indisponivel.php"); break;
+case index: header("Location:../tde_ajuda/$idioma_sistema/tde_busca/index.php"); break;
+case pastaTrabalhos: header("Location:../tde_ajuda/$idioma_sistema/tde_busca/pastaTrabalhos.php"); break;
+case processaEmail: header("Location:../tde_ajuda/$idioma_sistema/tde_busca/indisponivel.php"); break;
+case processaPesquisa: header("Location:../tde_busca/tde_busca/index.php"); break;
+}
+}
+
+//######################## TDE PUBLICADAS #############################
+if ($pagina_referencia_split2[0]=="publicadas") {
+switch ($pagina_referencia) {
+case alterar_arquivo: header("Location:../tde_pos/tde_publicada/indisponivel.php"); break;
+case alterar_tde: header("Location:../tde_pos/tde_publicada/indisponivel.php"); break;
+case contribuidores_tde: header("Location:../tde_pos/tde_publicada/indisponivel.php"); break;
+case disponibilidade_tde: header("Location:../tde_pos/tde_publicada/indisponivel.php"); break;
+case editar_aluno: header("Location:../tde_pos/tde_publicada/indisponivel.php"); break;
+case editar_areaCNPQ_tde: header("Location:../tde_pos/tde_publicada/indisponivel.php"); break;
+case editar_assunto_tde: header("Location:../tde_pos/tde_publicada/indisponivel.php"); break;
+case editar_cobertura_tde: header("Location:../tde_pos/tde_publicada/indisponivel.php"); break;
+case excluir_assunto_tde: header("Location:../tde_pos/tde_publicada/indisponivel.php"); break;
+case excluir_cobertura_tde: header("Location:../tde_pos/tde_publicada/indisponivel.php"); break;
+case excluir_tde: header("Location:../tde_pos/tde_publicada/indisponivel.php"); break;
+case excluir_tde_publicada: header("Location:../tde_pos/tde_publicada/indisponivel.php"); break;
+case finalizar: header("Location:../tde_pos/tde_publicada/indisponivel.php"); break;
+case inserir_afiliacao: header("Location:../tde_pos/tde_publicada/indisponivel.php"); break;
+case inserir_agfomento: header("Location:../tde_pos/tde_publicada/indisponivel.php"); break;
+case inserir_arquivo: header("Location:../tde_pos/tde_publicada/indisponivel.php"); break;
+case inserir_assunto_tde: header("Location:../tde_pos/tde_publicada/indisponivel.php"); break;
+case inserir_cobertura_tde: header("Location:../tde_pos/tde_publicada/indisponivel.php"); break;
+case inserir_tipos: header("Location:../tde_pos/tde_publicada/indisponivel.php"); break;
+case retornar_tde_excluida: header("Location:../tde_pos/tde_publicada/indisponivel.php"); break;
+case visualizar_assunto_tde: header("Location:../tde_pos/tde_publicada/indisponivel.php"); break;
+case visualizar_cobertura_tde: header("Location:../tde_pos/tde_publicada/indisponivel.php"); break;
+case visualizar_tde: header("Location:../tde_pos/tde_publicada/indisponivel.php"); break;
+}
+}
+?>

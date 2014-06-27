@@ -1,0 +1,15 @@
+<?
+
+require "../bibliotecas/estilo_mensagens.inc";
+
+//Biblioteca
+
+// Finalizar
+//Mensajes
+$m001="Enviar TDE con observaciones para el Departamento de Postgrado.";
+$m002="Habilitar TDE para acceso público. <br>Luego de la habilitación, esta TDE no podrá ser alterada.";
+
+//Exito
+$s001=$eSucesso."TDE HABILITADA".$eFecha;
+
+?>
