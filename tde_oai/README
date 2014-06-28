@@ -1,7 +1,0 @@
-Created in 16-06-2008 
-by Gabriel Franklin Araujo Mathias
-
-Para atualizar o protocolo OAI-PMH do seu sistema TEDE
-execute:
-
-svn checkout http://tede-oai-pmh.googlecode.com/svn/trunk/ . 

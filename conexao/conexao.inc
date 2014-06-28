@@ -1,3 +1,0 @@
-<?
-require "../conexao/conexao.php";
-?>
