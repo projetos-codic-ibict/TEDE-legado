@@ -6,6 +6,7 @@
 -- Tempo de Geração: Out 08, 2012 as 07:50 AM
 -- Versão do Servidor: 5.0.51
 -- Versão do PHP: 5.2.5
+-- ##
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
