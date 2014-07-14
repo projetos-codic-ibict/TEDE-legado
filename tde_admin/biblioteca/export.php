@@ -481,7 +481,7 @@ if(!session_is_registered("VAdmin_cnCod")) {
 	mkdir($diretorio.$datatimed,0775);
 	$diretorio=$diretorio.$datatimed."/";
 	$verifica_permissao_diretorio=is_writeable($diretorio);
-	mkdir($diretorio."Exportados", 0775);
+	mkdir($diretorio."exportados", 0775);
 
 	if ($verifica_permissao_diretorio!="1") {		
 		header("Location: exportar.php?e=finalizado&erro=1");
@@ -510,21 +510,21 @@ if(!session_is_registered("VAdmin_cnCod")) {
 		
 		if ($organizar=="PG"){
 
-			if(!is_dir($diretorio."Exportados/".$programaNome)){
-				mkdir($diretorio."Exportados/".$programaNome, 0775);
+			if(!is_dir($diretorio."exportados/".$programaNome)){
+				mkdir($diretorio."exportados/".$programaNome, 0775);
 			}
 			
-			if(!is_dir($diretorio."Exportados/".$programaNome.$grauExtensoCaminho)){
-				mkdir($diretorio."Exportados/".$programaNome.$grauExtensoCaminho, 0775);
+			if(!is_dir($diretorio."exportados/".$programaNome.$grauExtensoCaminho)){
+				mkdir($diretorio."exportados/".$programaNome.$grauExtensoCaminho, 0775);
 			}
 		
-			if(!is_dir($diretorio."Exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador)){
-				mkdir($diretorio."Exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador, 0775);
+			if(!is_dir($diretorio."exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador)){
+				mkdir($diretorio."exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador, 0775);
 			}
 	
 		}else{
-			if(!is_dir($diretorio."Exportados/".$tsIdentificador)){
-				mkdir($diretorio."Exportados/".$tsIdentificador, 0775);
+			if(!is_dir($diretorio."exportados/".$tsIdentificador)){
+				mkdir($diretorio."exportados/".$tsIdentificador, 0775);
 			}
 		}
 
@@ -1131,25 +1131,25 @@ if(!session_is_registered("VAdmin_cnCod")) {
 			//Verifica se diretório existe e se é permitido a escrita no mesmo
 	
 			if ($organizar=="PG"){
-				$verifica_permissao_pasta_destino=is_writeable($diretorio."Exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador);	
+				$verifica_permissao_pasta_destino=is_writeable($diretorio."exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador);	
 				if ($verifica_permissao_pasta_destino!="1") {
-					$erro_arquivos=$erro_arquivos."erro: ".$diretorio."Exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador." ->Não foi encontrado a pasta de destino ou não tem permissão de escrita;";
-					$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ Erro Arquivo: ". $diretorio."Exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador." ->Não foi encontrado a pasta de destino ou não tem permissão de escrita;\n";
+					$erro_arquivos=$erro_arquivos."erro: ".$diretorio."exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador." ->Não foi encontrado a pasta de destino ou não tem permissão de escrita;";
+					$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ Erro Arquivo: ". $diretorio."exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador." ->Não foi encontrado a pasta de destino ou não tem permissão de escrita;\n";
 				}
 			}else{
-				$verifica_permissao_pasta_destino=is_writeable($diretorio."Exportados/".$tsIdentificador);
+				$verifica_permissao_pasta_destino=is_writeable($diretorio."exportados/".$tsIdentificador);
 				if ($verifica_permissao_pasta_destino!="1") {
-					$erro_arquivos=$erro_arquivos."erro: ".$diretorio."Exportados/".$tsIdentificador." ->Não foi encontrado a pasta de destino ou não tem permissão de escrita;";
-					$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ Erro Arquivo: ". $diretorio."Exportados/".$tsIdentificador." ->Não foi encontrado a pasta de destino ou não tem permissão de escrita;\n";
+					$erro_arquivos=$erro_arquivos."erro: ".$diretorio."exportados/".$tsIdentificador." ->Não foi encontrado a pasta de destino ou não tem permissão de escrita;";
+					$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ Erro Arquivo: ". $diretorio."exportados/".$tsIdentificador." ->Não foi encontrado a pasta de destino ou não tem permissão de escrita;\n";
 				}
 			}
 			
 			$arquivo_nome = substr(strrchr($arquivoorigem, "/"), 1);
 		
 			if ($organizar=="PG"){
-				$arquivodestino=$diretorio."Exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador."/".$arquivo_nome;
+				$arquivodestino=$diretorio."exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador."/".$arquivo_nome;
 			}else{
-				$arquivodestino=$diretorio."Exportados/".$tsIdentificador."/".$arquivo_nome;
+				$arquivodestino=$diretorio."exportados/".$tsIdentificador."/".$arquivo_nome;
 			}
 		
 			$arquivo_existe=file_exists($arquivoorigem);
@@ -1255,33 +1255,33 @@ if(!session_is_registered("VAdmin_cnCod")) {
 
 
 		if ($organizar=="PG"){
-			$fp1=fopen($diretorio."Exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador."/contents",a);
+			$fp1=fopen($diretorio."exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador."/contents",a);
 			$escreve1=fwrite($fp1,$contents); 
 			fclose($fp1);
 			
-			$fp2=fopen($diretorio."Exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador."/dublin_core.xml",a);
+			$fp2=fopen($diretorio."exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador."/dublin_core.xml",a);
 			$escreve2=fwrite($fp2,$arquivoxmlutf8); 
 			fclose($fp2);
 			
 			
 			if ($erro_logfile!=""){
-				$fpErro=fopen($diretorio."Exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador."/logfile",a);
+				$fpErro=fopen($diretorio."exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador."/logfile",a);
 				$escreveErro=fwrite($fpErro,$erro_logfile); 
 				fclose($fpErro);
 			}
 			
 		}else{
-			$fp1=fopen($diretorio."Exportados/".$tsIdentificador."/contents",a);
+			$fp1=fopen($diretorio."exportados/".$tsIdentificador."/contents",a);
 			$escreve1=fwrite($fp1,$contents); 
 			fclose($fp1);
 			
-			$fp2=fopen($diretorio."Exportados/".$tsIdentificador."/dublin_core.xml",a);
+			$fp2=fopen($diretorio."exportados/".$tsIdentificador."/dublin_core.xml",a);
 			$escreve2=fwrite($fp2,$arquivoxmlutf8); 
 			fclose($fp2);
 			
 			
 			if ($erro_logfile!=""){
-				$fpErro=fopen($diretorio."Exportados/".$tsIdentificador."/logfile",a);
+				$fpErro=fopen($diretorio."exportados/".$tsIdentificador."/logfile",a);
 				$escreveErro=fwrite($fpErro,$erro_logfile); 
 				fclose($fpErro);
 			}
@@ -1298,9 +1298,9 @@ if(!session_is_registered("VAdmin_cnCod")) {
 			}
 			
 			if ($organizar=="PG"){
-				rename($diretorio."Exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador."/",$diretorio."_erro_itens_triagem/".$tsIdentificador."/"); 
+				rename($diretorio."exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador."/",$diretorio."_erro_itens_triagem/".$tsIdentificador."/"); 
 			}else{
-				rename($diretorio."Exportados/".$tsIdentificador."/", $diretorio."_erro_itens_triagem/".$tsIdentificador."/");
+				rename($diretorio."exportados/".$tsIdentificador."/", $diretorio."_erro_itens_triagem/".$tsIdentificador."/");
 			
 			}
 			
