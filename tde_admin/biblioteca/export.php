@@ -1321,6 +1321,13 @@ if(!session_is_registered("VAdmin_cnCod")) {
 		$qtd_erro_metadado=$qtd_erro_metadado+$qtd_erro_metadado_a;
 		$qtd_erro_arquivo=$qtd_erro_arquivo+$qtd_erro_arquivo_a;
 		$qtd_erro=$qtd_erro+$qtd_erro_a;
+		
+				
+		unset($tempFormato,$citacaoDocumento,$pfNomeAutor,$ttTitulo,$tsDataDefesa_ano,$pageCount,$grauTipo,$prArea,$inNome,$tsCidadeLocalDefesa);unset($arquivoxml,$contributorauthorID,$contributorauthorLattes,$advisor,$advisorID,$advisorLattes,$advisorco,$advisorcoID);
+		unset($advisorcoLattes,$referees,$refereesID,$refereesLattes,$acessioned,$available,$issued,$identifierCitation,$resumo,$abstract);
+		unset($sponsorship,$publisher,$publisher_country,$publisher_initials,$department,$program,$type,$title,$titleAlternative,$language);
+		unset($rigths,$subject,$subjectCnpq,$format,$arquivoxmlutf8);
+
 					
 		$SEL_ts_RES=mysql_fetch_array($SEL_ts_query);
 
