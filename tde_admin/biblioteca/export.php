@@ -1014,7 +1014,7 @@ if(!session_is_registered("VAdmin_cnCod")) {
 		if ($SEL_rs_RES=="") {
 			$erro_metadados=$erro_metadados."rsResumo: vazio;";
 			$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ ". "dc.description.resumo - Resumo: não existe\n";
-			$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ ". "dc.description.abstract - Resumo em outra língua: não existe\n";
+			//$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ ". "dc.description.abstract - Resumo em outra língua: não existe\n";
 		}
 		
 		while ($SEL_rs_RES!="") {
@@ -1038,7 +1038,7 @@ if(!session_is_registered("VAdmin_cnCod")) {
 				}
 			}else{
 				$resumo=$resumo."<dcvalue element=\"description\" qualifier=\"resumo\" language=\"".$arrayIdiomas[$rsIdioma]."\">".htmlspecialchars($rsResumo, ENT_QUOTES)."</dcvalue>";
-				$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ ". "dc.description.abstract - Resumo em outra língua: não existe\n";
+				//$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ ". "dc.description.abstract - Resumo em outra língua: não existe\n";
 			}
 			
 			$SEL_rs_RES=mysql_fetch_array($SEL_rs_query);
