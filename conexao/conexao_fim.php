@@ -3,7 +3,7 @@
  $server_fim = "localhost";
  $passwd_fim = "";
  $conexao_fim = mysql_connect("$server_fim","$usuario_fim","$passwd_fim");
- $base_fim = "TEDEUFG_TDE";
+ $base_fim = "TEDE_TDE";
  
  if (($mysql_version_majour >=4) && ($mysql_version_minor>=1))
 {

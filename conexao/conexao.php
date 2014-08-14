@@ -3,7 +3,7 @@
  $server = "localhost";
  $passwd = "";
  $conexao = mysql_connect("$server","$usuario","$passwd");
- $base = "TEDEUFG_SUBMISSAO";
+ $base = "TEDE_SUBMISSAO";
  
  if (($mysql_version_majour >=4) && ($mysql_version_minor>=1))
 {
