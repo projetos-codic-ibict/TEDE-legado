@@ -226,7 +226,15 @@ header("Location: ../index.php");
   <?php } ?>
                   <?php if ($_GET[e]=="finalizado") {?>
                   <tr align="center" class="tdAdmin">
-                    <td>Exportação Finalizada! <br><br>Relatório da exportação:<br><br>Quantidade de registro exportado: <?php echo $_GET[qtd]; ?><br>Quantidade de erro de metadados: <?php echo $_GET[qtd2]; ?><br>Quantidade de erro em arquivos: <?php echo $_GET[qtd3]; ?><br>Quantidade total de erros: <?php echo $_GET[qtd4]; ?><br><br>Para visualizar detalhes da exportação, acesse o item de menu "Visualizar" ou <a href="tela_export.php">clique aqui</a>! <?php echo $finalizado; ?></td>
+                    <td>Exportação Finalizada! <br><br>
+					Relatório da exportação:<br><br>
+					Quantidade de registros processados: <?php echo $_GET[qtd]; ?><br>
+					Quantidade de registros exportados com sucesso: <?php echo $_GET[qtd_sucesso]; ?><br>
+					Quantidade de registros exportados com erros: <?php echo $_GET[qtd2]; ?><br>
+					<!--Quantidade de erro de metadados: <?php echo $_GET[qtd2]; ?><br>
+					Quantidade de erro em arquivos: <?php echo $_GET[qtd3]; ?><br>
+					Quantidade total de erros: <?php echo $_GET[qtd4]; ?><br><br> -->
+					Para visualizar detalhes da exportação, acesse o item de menu "Visualizar" ou <a href="tela_export.php">clique aqui</a>! <?php echo $finalizado; ?></td>
                   </tr>
   <?php } ?>
                   
