@@ -135,7 +135,7 @@ function montaData($data){
 	return $check;
 }
 
-function citacaoNomeABNT($autor){
+function citacaoNomeABNT($autor, $sobrenomeMaiusculo=false){
 	$sobrenomesArray =array('primeiro','segundo','terceiro', 'quarto', 'quinto',
 							'primeira','segunda','terceira', 'quarta', 'quinta',
 							'i', 'ii' , 'iii', 'iv', 'v', 
@@ -160,12 +160,19 @@ function citacaoNomeABNT($autor){
 	
 	if (in_array(removeAcentos($array_nome[$tamanho-1],$codificacao), $sobrenomesArray)){
 		$sobrenomeComposto=true;
-		$sobrenome=mb_strtoupper($array_nome[$tamanho-2], $codificacao) . " ". mb_strtoupper($array_nome[$tamanho-1], $codificacao) ;
+		if ($sobrenomeMaiusculo==true){
+			$sobrenome=mb_strtoupper($array_nome[$tamanho-2], $codificacao) . " ". mb_strtoupper($array_nome[$tamanho-1], $codificacao);
+		}else{
+			$sobrenome=ucfirst($array_nome[$tamanho-2]) . " ". ucfirst($array_nome[$tamanho-1]);
+		}
 	}else{
 		$sobrenomeComposto=false;
-		$sobrenome=mb_strtoupper($array_nome[$tamanho-1], $codificacao);
+		if ($sobrenomeMaiusculo==true){
+			$sobrenome=mb_strtoupper($array_nome[$tamanho-1], $codificacao);
+		}else{
+			$sobrenome=ucfirst($array_nome[$tamanho-1]);		
+		}
 	}
-	
 	$nome="";
 	foreach ($array_nome as $key => $value){
 		if(!in_array($value,$preposicaoArray)){
@@ -199,7 +206,7 @@ function montaCitacaoDocumento($pfNomeAutor,$ttTitulo,$tsDataDefesa_ano, $pageCo
 		}else{
 			$grau="Mestrado em ";	
 		}
-		$citacao=citacaoNomeABNT($pfNomeAutor).". ".trim(htmlspecialchars($ttTitulo, ENT_QUOTES)).". ".
+		$citacao=citacaoNomeABNT($pfNomeAutor, true).". ".trim(htmlspecialchars($ttTitulo, ENT_QUOTES)).". ".
 			$tsDataDefesa_ano .". ". $pageCount." f. ". utf8_decode($grauTipo) ." (". $grau . trim($prArea). ") - " .
 			trim($inNome) .", ".trim($tsCidadeLocalDefesa).", ". trim($tsDataDefesa_ano).".";
 	}
@@ -473,6 +480,8 @@ if(!session_is_registered("VAdmin_cnCod")) {
 	$SEL_ts_query=mysql_db_query($base_fim,$SEL_ts,$conexao_fim)  or die('Query failed: ' . mysql_error());
 	$SEL_ts_RES=mysql_fetch_array($SEL_ts_query);
 	$id="";
+	$qtd_reg_sucesso=0;
+	$qtd_reg_erros=0;
 	$datatime=date("Y-m-d H:i:s");
 
 	$datatimed=str_replace(":","",$datatime);
@@ -535,28 +544,15 @@ if(!session_is_registered("VAdmin_cnCod")) {
 		$tsNumeroChamada=$SEL_ts_RES["tsNumeroChamada"];
 		$tsIdioma=$SEL_ts_RES["tsIdioma"];
 		if ($tsIdioma=="") {
-			$erro_metadados=$erro_metadados."tsIdioma: vazio;";
-			$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ ". "dc.language - Indioma do documento: não existe\n";
+			$erro_metadados=$erro_metadados."tsIdioma: dc.language - Idioma do documento: não existe;";
+			$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ ". "dc.language - Idioma do documento: não existe\n";
 		
 		}
-
 		$language="<dcvalue element=\"language\" language=\"".$arrayIdiomas[$tsIdioma]."\">".$arrayIdiomas[$tsIdioma]."</dcvalue>";
 		
-		if ($tsGrau=="") {
-			$erro_metadados=$erro_metadados."tsGrau: vazio;";
-			$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ ". "dc.type - tipo - grau: não existe\n";
-		}
+		
 	
 		$tsTitulacao=$SEL_ts_RES["tsTitulacao"];
-		if ($tsTitulacao=="") {
-			$erro_metadados=$erro_metadados."tsTitulacao: vazio;";
-		}
-		//$tsDataAtualizacao=$SEL_ts_RES["tsDataAtualizacao"];
-		//Pegar a Data de Atualização(DateStamp)
-		//$unix = gmmktime();
-		//$tsDataAtualizacao = date("Y-m-d\TH:i:s\Z", $unix);
-
-		
 		$tsDataAtualizacao=substr($SEL_ts_RES["tsDataAtualizacao"], 0, 10);
 		
 
@@ -602,7 +598,7 @@ if(!session_is_registered("VAdmin_cnCod")) {
 			//$available_ano="<dcvalue element=\"date\" qualifier=\"available\">".$tsDataDefesa_ano."</dcvalue>";
 		}else{
 			$dataValida=false;
-			$erro_metadados=$erro_metadados."tsDataDefesa: data Inválida;";
+			$erro_metadados=$erro_metadados."tsDataDefesa: date.issued - Data defesa: formato inválido (".$tsDataDefesa.");";
 			$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ ". "dc.date.issued - Data defesa: formato inválido(".$tsDataDefesa.")\n";
 		}
 
@@ -618,7 +614,7 @@ if(!session_is_registered("VAdmin_cnCod")) {
 				$tsDataFinalizacao_ano=$tsDataFinalizacao_split[0];	
 				
 			}else{
-				$erro_metadados=$erro_metadados."tsDataFinalizacao: inválido;";
+				$erro_metadados=$erro_metadados."tsDataFinalizacao: dc.date.available - Data available: formato inválido(".$tsDataFinalizacao."), campo Tede tsDataFinalizacao;";
 				$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ ". "dc.date.available - Data available: formato inválido(".$tsDataFinalizacao."), campo Tede tsDataFinalizacao \n";
 			}
 		}
@@ -643,15 +639,15 @@ if(!session_is_registered("VAdmin_cnCod")) {
 		$inPais=trim($SEL_in_RES["inPais"]);
 
 		if ($inNome=="") {
-			$erro_metadados=$erro_metadados."inNome: vazio;";
+			$erro_metadados=$erro_metadados."inNome: dc.publisher - Nome da instituição: vazio;";
 			$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ ". "dc.publisher - Nome da instituição: vazio\n";
 		}
 		if ($inSigla=="") {
-			$erro_metadados=$erro_metadados."inSigla: vazio;";
+			$erro_metadados=$erro_metadados."inSigla: dc.publisher.initials - iniciais da instituição de ensino: vazio;";
 			$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ ". "dc.publisher.initials - iniciais da instituição de ensino: vazio\n";
 		}
 		if ($inPais=="") {
-			$erro_metadados=$erro_metadados."inPais: vazio;";
+			$erro_metadados=$erro_metadados."inPais: dc.publisher.country - país da instituição de ensino: vazio;";
 			$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ ". "dc.publisher.country - país da instituição de ensino: vazio\n";
 		}
 		
@@ -676,13 +672,13 @@ if(!session_is_registered("VAdmin_cnCod")) {
 		$prNome=trim($SEL_pr_RES["prNome"]);
 		$prArea=trim($SEL_pr_RES["prArea"]);
 		if ($prNome=="") {
-			$erro_metadados=$erro_metadados."prNome: vazio;";
+			$erro_metadados=$erro_metadados."prNome: dc.publisher.program - nome do programa de pós-graduação: vazio;";
 			$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ ". "dc.publisher.program - nome do programa de pós-graduação: vazio\n";
 		}
 		
 		if ($prArea=="") {
-			$erro_metadados=$erro_metadados."prArea: vazio;";
-			$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ ". "dc.publisher.department  - nome do departamento de pós-graduação: vazio\n";
+			$erro_metadados=$erro_metadados."prArea: dc.publisher.department  - nome do departamento: vazio;";
+			$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ ". "dc.publisher.department  - nome do departamento: vazio\n";
 		}
 
 		$program="<dcvalue element=\"publisher\" qualifier=\"program\" language=\"por\">".htmlspecialchars($prNome, ENT_QUOTES)."</dcvalue>";
@@ -737,10 +733,12 @@ if(!session_is_registered("VAdmin_cnCod")) {
 			if (($tspfTipo=="Orientador") or ($tspfTipo=="Director") or ($tspfTipo=="Advisor")) {
 				$orientadorCount=$orientadorCount+1;
 			
+			/*
 				if ($pfNome=="") {
-					$erro_metadados=$erro_metadados."pfNome_ORIENTADOR: vazio;";
+					$erro_metadados=$erro_metadados."pfNome_ORIENTADOR: dc.contributor.advisor - nome do orientador: vazio;";
 					$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ ". "dc.contributor.advisor - nome do orientador: vazio\n";
 				}
+				*/
 				/*
 				if ($pfCPF=="") {
 					$erro_metadados=$erro_metadados."pfCPF_Orientador: vazio;";
@@ -751,7 +749,7 @@ if(!session_is_registered("VAdmin_cnCod")) {
 				*/
 				
 				if (!empty($pfNome)){
-					$advisor=$advisor."\n<dcvalue element=\"contributor\" qualifier=\"advisor\">".citacaoNomeABNT($pfNome)."</dcvalue>";
+					$advisor=$advisor."\n<dcvalue element=\"contributor\" qualifier=\"advisor\">".citacaoNomeABNT($pfNome,false)."</dcvalue>";
 				}elseif(!empty($pfCitacao)){
 					$advisor=$advisor."\n<dcvalue element=\"contributor\" qualifier=\"advisor\">".htmlspecialchars($pfCitacao, ENT_QUOTES)."</dcvalue>";
 				}elseif(!empty($pfCitacaoABNT)){
@@ -773,9 +771,12 @@ if(!session_is_registered("VAdmin_cnCod")) {
 				
 				if ($idAdvisorco<=2){
 					
+					/*
 					if ($pfNome=="") {
-						$erro_metadados=$erro_metadados."pfNome_CO-Orientador: vazio;";
+						$erro_metadados=$erro_metadados."pfNome_CO-Orientador: dc.contributor.advisor-co - nome do co-orientador: vazio\n";
+						$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ ". "dc.contributor.advisor-co - nome do co-orientador: vazio\n";
 					}
+					*/
 					/*
 					if ($pfCPF=="") {
 						$erro_metadados=$erro_metadados."pfCPF_Co-Orientador: vazio;";
@@ -786,7 +787,7 @@ if(!session_is_registered("VAdmin_cnCod")) {
 					*/
 		
 					if (!empty($pfNome)){
-						$advisorco=$advisorco."\n<dcvalue element=\"contributor\" qualifier=\"advisor-co".$idAdvisorco."\">".citacaoNomeABNT($pfNome)."</dcvalue>";
+						$advisorco=$advisorco."\n<dcvalue element=\"contributor\" qualifier=\"advisor-co".$idAdvisorco."\">".citacaoNomeABNT($pfNome,false)."</dcvalue>";
 					}elseif (!empty($pfCitacao)){
 						$advisorco=$advisorco."\n<dcvalue element=\"contributor\" qualifier=\"advisor-co".$idAdvisorco."\">".htmlspecialchars($pfCitacao, ENT_QUOTES)."</dcvalue>";
 					}elseif(!empty($pfCitacaoABNT)){
@@ -808,10 +809,7 @@ if(!session_is_registered("VAdmin_cnCod")) {
 			if ($tspfTipo=="Autor") {
 				$autorCount=$autorCount+1;
 				$pfNomeAutor=$pfNome;
-				if ($pfNome=="") {
-					$erro_metadados=$erro_metadados."pfNome_AUTOR: vazio;";
-					$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ ". "dc.contributor.author - nome do autor: vazio\n";
-				}
+
 				/*
 				if ($pfCPF=="") {
 					$erro_metadados=$erro_metadados."pfCPF_AUTOR: vazio;";
@@ -822,7 +820,7 @@ if(!session_is_registered("VAdmin_cnCod")) {
 				*/
 				
 				if(!empty($pfNome)){
-					$author="<dcvalue element=\"contributor\" qualifier=\"author\">".citacaoNomeABNT($pfNome)."</dcvalue>";
+					$author="<dcvalue element=\"contributor\" qualifier=\"author\">".citacaoNomeABNT($pfNome,false)."</dcvalue>";
 				}elseif (!empty($pfCitacao)){
 					$author="<dcvalue element=\"contributor\" qualifier=\"author\">".htmlspecialchars($pfCitacao, ENT_QUOTES)."</dcvalue>";
 				}elseif(!empty($pfCitacaoABNT)){
@@ -844,7 +842,6 @@ if(!session_is_registered("VAdmin_cnCod")) {
 				$SEL_pfpj="SELECT * FROM PFPJ WHERE pfCod=$pfCod and pfpjTipo=\"AgenciaFomento\"";
 				$SEL_pfpj_query=mysql_db_query($base_fim,$SEL_pfpj,$conexao_fim);
 				$SEL_pfpj_RES=mysql_fetch_array($SEL_pfpj_query);
-		
 				while ($SEL_pfpj_RES!="") {
 					$afiliacao_agfomento=$SEL_pfpj_RES["pjCod"];
 			
@@ -853,7 +850,7 @@ if(!session_is_registered("VAdmin_cnCod")) {
 					$SEL_pj_RES=mysql_fetch_array($SEL_pj_query);
 		
 					$pjNome=$SEL_pj_RES["pjNome"];
-					$description_sponsorship="<dcvalue element=\"description\" qualifier=\"sponsorship\">".htmlspecialchars($pjNome, ENT_QUOTES)."</dcvalue>";
+					$sponsorship="<dcvalue element=\"description\" qualifier=\"sponsorship\">".htmlspecialchars($pjNome, ENT_QUOTES)."</dcvalue>";
 					$SEL_pfpj_RES=mysql_fetch_array($SEL_pfpj_query);
 				}
 		
@@ -901,12 +898,12 @@ if(!session_is_registered("VAdmin_cnCod")) {
 		}
 		
 		if ($orientadorCount==0){
-			$erro_metadados=$erro_metadados."pfNome_ORIENTADOR: vazio;";
+			$erro_metadados=$erro_metadados."pfNome_ORIENTADOR: dc.contributor.advisor - orientador: não preenchido;";
 			$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ ". "dc.contributor.advisor - orientador: não preenchido\n";
 		
 		}
 		if ($autorCount==0){
-			$erro_metadados=$erro_metadados."pfNome_AUTOR: vazio;";
+			$erro_metadados=$erro_metadados."pfNome_AUTOR: dc.contributor.author - autor: não preenchido;";
 			$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ ". "dc.contributor.author - autor: não preenchido\n";
 		
 		}
@@ -924,7 +921,7 @@ if(!session_is_registered("VAdmin_cnCod")) {
 		$title="";
 		$titleAlternative="";
 		if ($SEL_tt_RES=="") {
-			$erro_metadados=$erro_metadados."ttTitulo: vazio;";
+			$erro_metadados=$erro_metadados."ttTitulo: dc.title - titulo do documento: não preenchido;";
 			$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ ". "dc.title - titulo do documento: não preenchido\n";
 		}
 		
@@ -933,11 +930,13 @@ if(!session_is_registered("VAdmin_cnCod")) {
 		while ($SEL_tt_RES!="") {
 			$ttTitulo=trim($SEL_tt_RES["ttTitulo"]);
 			$ttIdioma=strtolower($SEL_tt_RES["ttIdioma"]);
+			/*
 			if ($ttTitulo=="") {
 				$erro_metadados=$erro_metadados."ttTitulo_".$ttIdioma.": vazio;";
 				$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ ". "dc.title - nome do titulo do documento: vazio\n";
 				
 			}
+			*/
 			//echo "QTD de TITULOS: ".$num_rows;
 			//echo "<br />jaTemPt: ".$jaTemPt;
 			if ($num_rows>=2){
@@ -975,7 +974,8 @@ if(!session_is_registered("VAdmin_cnCod")) {
 		$subjectCnpq="";
 		
 		if ($SEL_as_RES=="") {
-			$erro_metadados=$erro_metadados."asAssunto: vazio;";
+			$erro_metadados=$erro_metadados."asAssunto: dc.subject - Assunto: não existe;";
+			$erro_metadados=$erro_metadados."asAssunto: dc.subjectCnpq - Assunto CNPQ: não existe;";
 			$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ ". "dc.subject - Assunto: não existe\n";
 			$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ ". "dc.subjectCnpq - Assunto CNPQ: não existe\n";
 		}
@@ -1012,26 +1012,26 @@ if(!session_is_registered("VAdmin_cnCod")) {
 		$abstract="";
 		$resumo="";
 		if ($SEL_rs_RES=="") {
-			$erro_metadados=$erro_metadados."rsResumo: vazio;";
+			$erro_metadados=$erro_metadados."rsResumo: dc.description.resumo - Resumo: não existe;";
 			$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ ". "dc.description.resumo - Resumo: não existe\n";
 			//$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ ". "dc.description.abstract - Resumo em outra língua: não existe\n";
 		}
 		
 		while ($SEL_rs_RES!="") {
-			$rsResumo=$SEL_rs_RES["rsResumo"];
+			$rsResumo=trim($SEL_rs_RES["rsResumo"]);
 			$rsIdioma=strtolower($SEL_rs_RES["rsIdioma"]);
 			
 			if ($num_rows>=2){
 				//Para funcionar o tsIdioma e o ttIdioma não podem ser nulos
 				if($tsIdioma==$rsIdioma){
 					if ($rsResumo=="") {
-						$erro_metadados=$erro_metadados."rsResumo_".$rsResumo.": vazio;";
+						$erro_metadados=$erro_metadados."rsResumo:dc.description.resumo - Resumo: não existe;";
 						$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ ". "dc.description.resumo - Resumo: não existe\n";
 					}
 					$resumo=$resumo."<dcvalue element=\"description\" qualifier=\"resumo\" language=\"".$arrayIdiomas[$rsIdioma]."\">".htmlspecialchars($rsResumo, ENT_QUOTES)."</dcvalue>";
 				}else{
 					if ($rsResumo=="") {
-						$erro_metadados=$erro_metadados."rsResumo_".$rsResumo.": vazio;";
+						$erro_metadados=$erro_metadados."rsResumo: dc.description.abstract - Resumo em outra língua: não existe\n";
 						$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ ". "dc.description.abstract - Resumo em outra língua: não existe\n";
 					}
 					$abstract=$abstract."<dcvalue element=\"description\" qualifier=\"abstract\" language=\"".$arrayIdiomas[$rsIdioma]."\">".htmlspecialchars($rsResumo, ENT_QUOTES)."</dcvalue>";
@@ -1044,6 +1044,7 @@ if(!session_is_registered("VAdmin_cnCod")) {
 			$SEL_rs_RES=mysql_fetch_array($SEL_rs_query);
 		}
 		
+		/*
 		//Selecionar os direito dessa Tese
 		$SEL_dr="SELECT * FROM Direitos WHERE tsIdentificador=$tsIdentificador";
 		$SEL_dr_query=mysql_db_query($base_fim,$SEL_dr,$conexao_fim);
@@ -1056,7 +1057,7 @@ if(!session_is_registered("VAdmin_cnCod")) {
 		if ($drDireito=="") {
 			$erro_metadados=$erro_metadados."drDireito: vazio;";
 		}
-		
+		*/
 		//Selecionar os Tipos dessa Tese
 		
 		/*
@@ -1077,6 +1078,10 @@ if(!session_is_registered("VAdmin_cnCod")) {
 			$SEL_tp_RES=mysql_fetch_array($SEL_tp_query);
 		}
 		*/
+		if ($tsGrau=="") {
+			$erro_metadados=$erro_metadados."tsGrau: dc.type - tipo - grau: não existe;";
+			$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ ". "dc.type - tipo - grau: não existe\n";
+		}
 		
 		if ($tsGrau=="Doutor" or $tsGrau=="Doctor") {
 			$grauTipo="Tese";
@@ -1212,47 +1217,48 @@ if(!session_is_registered("VAdmin_cnCod")) {
 		}
 		
 		$arquivoxml="<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>
-		<dublin_core schema=\"dc\">\n".$author."
-		".$contributorauthorID."
-		".$contributorauthorLattes."
-		".$advisor."
-		".$advisorID."
-		".$advisorLattes."
-		".$advisorco."
-		".$advisorcoID."
-		".$advisorcoLattes."
-		".$referees."
-		".$refereesID."
-		".$refereesLattes."
-		".$acessioned."
-		".$available."
-		".$issued."
-		".$identifierCitation. "
-		".$resumo."
-		".$abstract."
-		".$sponsorship."
-		".$publisher."
-		".$publisher_country."
-		".$publisher_initials."
-		".$department."
-		".$program."
-		".$type."
-		".$title."
-		".$titleAlternative."
-		".$language."
-		".$rigths."
-		".$subject."
-		".$subjectCnpq."
-		".$format."
-		</dublin_core>";
+		<dublin_core schema=\"dc\">\n"
+		.$author."\n"
+		.$contributorauthorID."\n"
+		.$contributorauthorLattes."\n"
+		.$advisor."\n"
+		.$advisorID."\n"
+		.$advisorLattes."\n"
+		.$advisorco."\n"
+		.$advisorcoID."\n"
+		.$advisorcoLattes."\n"
+		.$referees."\n"
+		.$refereesID."\n"
+		.$refereesLattes."\n"
+		.$acessioned."\n"
+		.$available."\n"
+		.$issued."\n"
+		.$identifierCitation."\n"
+		.$resumo."\n"
+		.$abstract."\n"
+		.$sponsorship."\n"
+		.$publisher."\n"
+		.$publisher_country."\n"
+		.$publisher_initials."\n"
+		.$department."\n"
+		.$program."\n"
+		.$type."\n"
+		.$title."\n"
+		.$titleAlternative."\n"
+		.$language."\n"
+		.$rigths."\n"
+		.$subject."\n"
+		.$subjectCnpq."\n"
+		.$format."\n"
+		."</dublin_core>";
 
 		$arquivoxmlutf8 = utf8_encode($arquivoxml);
 
 		
 		if(is_utf8($arquivoxmlutf8)==false){
+			$erro_metadados=$erro_metadados."XML :Erro Codificação UTF8 XML - : XML com a codificação inválida;";	
 			$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ ". "Erro Codificação UTF8 XML - : XML com a codificação inválida\n";
 		}
-
 
 		if ($organizar=="PG"){
 			$fp1=fopen($diretorio."exportados/".$programaNome.$grauExtensoCaminho."/".$tsIdentificador."/contents",a);
@@ -1285,10 +1291,8 @@ if(!session_is_registered("VAdmin_cnCod")) {
 				$escreveErro=fwrite($fpErro,$erro_logfile); 
 				fclose($fpErro);
 			}
-			
 		}
 		
-	
 		if ($erro_logfile!=""){
 			if(!is_dir($diretorio."_erro_itens_triagem")){
 				mkdir($diretorio."_erro_itens_triagem", 0775);
@@ -1303,9 +1307,8 @@ if(!session_is_registered("VAdmin_cnCod")) {
 				rename($diretorio."exportados/".$tsIdentificador."/", $diretorio."_erro_itens_triagem/".$tsIdentificador."/");
 			
 			}
-			
+			$qtd_reg_erros=$qtd_reg_erros+1;
 		}
-			
 		
 		// inclusão de conta na tabela Contas
 		$campos_le="le_data,tsIdentificador,le_metadados,le_arquivos,le_diretorio";
@@ -1322,17 +1325,19 @@ if(!session_is_registered("VAdmin_cnCod")) {
 		$qtd_erro_arquivo=$qtd_erro_arquivo+$qtd_erro_arquivo_a;
 		$qtd_erro=$qtd_erro+$qtd_erro_a;
 		
+		
+		$qtd_reg_sucesso=$id-$qtd_reg_erros;
 				
 		unset($tempFormato,$citacaoDocumento,$pfNomeAutor,$ttTitulo,$tsDataDefesa_ano,$pageCount,$grauTipo,$prArea,$inNome,$tsCidadeLocalDefesa);unset($arquivoxml,$contributorauthorID,$contributorauthorLattes,$advisor,$advisorID,$advisorLattes,$advisorco,$advisorcoID);
 		unset($advisorcoLattes,$referees,$refereesID,$refereesLattes,$acessioned,$available,$issued,$identifierCitation,$resumo,$abstract);
 		unset($sponsorship,$publisher,$publisher_country,$publisher_initials,$department,$program,$type,$title,$titleAlternative,$language);
 		unset($rigths,$subject,$subjectCnpq,$format,$arquivoxmlutf8);
 
-					
 		$SEL_ts_RES=mysql_fetch_array($SEL_ts_query);
 
 	}
-	header("Location: exportar.php?e=finalizado&qtd=$id&qtd2=$qtd_erro&qtd3=$qtd_erro_metadado&qtd4=$qtd_erro_arquivo");
+
+	header("Location: exportar.php?e=finalizado&qtd=$id&qtd_sucesso=$qtd_reg_sucesso&qtd2=$qtd_reg_erros&qtd3=$qtd_erro_metadado&qtd4=$qtd_erro_arquivo");
 	exit;
 }
 ?>
