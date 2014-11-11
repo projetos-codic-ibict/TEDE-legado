@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tempo de GeraÁ„o: Out 08, 2012 as 07:50 AM
--- Vers„o do Servidor: 5.0.51
--- Vers„o do PHP: 5.2.5
+-- Tempo de Gera√ß√£o: Out 08, 2012 as 07:50 AM
+-- Vers√£o do Servidor: 5.0.51
+-- Vers√£o do PHP: 5.2.5
 -- ##
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
@@ -19,6 +19,8 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 -- Estrutura da tabela `log_export`
 --
+
+DROP TABLE IF EXISTS `log_export`;
 
 CREATE TABLE IF NOT EXISTS `log_export` (
   `le_data` datetime NOT NULL,
