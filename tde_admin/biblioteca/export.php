@@ -684,17 +684,17 @@ if(!session_is_registered("VAdmin_cnCod")) {
 		$program="<dcvalue element=\"publisher\" qualifier=\"program\" language=\"por\">".htmlspecialchars($prNome, ENT_QUOTES)."</dcvalue>";
 		$department="<dcvalue element=\"publisher\" qualifier=\"department\" language=\"por\">".htmlspecialchars($prArea, ENT_QUOTES)."</dcvalue>";
 		
-		$advisor="";
-		$advisorID="";
-		$advisorLattes="";
+		$advisor1="";
+		$advisor1ID="";
+		$advisor1Lattes="";
 		$advisorco="";
 		$advisorcoID="";
 		$advisorcoLattes="";
 		
-		$author="";
-		$referees="";
-		$refereesID="";
-		$refereesLattes="";
+		$creator="";
+		$referee="";
+		$refereeID="";
+		$refereeLattes="";
 
 		$idAdvisorco=0;
 		$idReferees=0;
@@ -735,8 +735,8 @@ if(!session_is_registered("VAdmin_cnCod")) {
 			
 			/*
 				if ($pfNome=="") {
-					$erro_metadados=$erro_metadados."pfNome_ORIENTADOR: dc.contributor.advisor - nome do orientador: vazio;";
-					$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ ". "dc.contributor.advisor - nome do orientador: vazio\n";
+					$erro_metadados=$erro_metadados."pfNome_ORIENTADOR: dc.contributor.advisor1 - nome do orientador: vazio;";
+					$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ ". "dc.contributor.advisor1 - nome do orientador: vazio\n";
 				}
 				*/
 				/*
@@ -749,20 +749,20 @@ if(!session_is_registered("VAdmin_cnCod")) {
 				*/
 				
 				if (!empty($pfNome)){
-					$advisor=$advisor."\n<dcvalue element=\"contributor\" qualifier=\"advisor\">".citacaoNomeABNT($pfNome,false)."</dcvalue>";
+					$advisor1=$advisor1."\n<dcvalue element=\"contributor\" qualifier=\"advisor1\">".citacaoNomeABNT($pfNome,false)."</dcvalue>";
 				}elseif(!empty($pfCitacao)){
-					$advisor=$advisor."\n<dcvalue element=\"contributor\" qualifier=\"advisor\">".htmlspecialchars($pfCitacao, ENT_QUOTES)."</dcvalue>";
+					$advisor1=$advisor1."\n<dcvalue element=\"contributor\" qualifier=\"advisor1\">".htmlspecialchars($pfCitacao, ENT_QUOTES)."</dcvalue>";
 				}elseif(!empty($pfCitacaoABNT)){
-					$advisor=$advisor."\n<dcvalue element=\"contributor\" qualifier=\"advisor\">".htmlspecialchars($pfCitacaoABNT, ENT_QUOTES)."</dcvalue>";
+					$advisor1=$advisor1."\n<dcvalue element=\"contributor\" qualifier=\"advisor1\">".htmlspecialchars($pfCitacaoABNT, ENT_QUOTES)."</dcvalue>";
 				}else{
-					$advisor=$advisor."\n<dcvalue element=\"contributor\" qualifier=\"advisor\">".htmlspecialchars($pfNome, ENT_QUOTES)."</dcvalue>";
+					$advisor1=$advisor1."\n<dcvalue element=\"contributor\" qualifier=\"advisor1\">".htmlspecialchars($pfNome, ENT_QUOTES)."</dcvalue>";
 				}	
 				
 				if(!empty($pfCPF)){
-					$advisorID=$advisorID."\n<dcvalue element=\"contributor\" qualifier=\"advisorID\" language=\"por\">".$pfCPF."</dcvalue>";
+					$advisor1ID=$advisor1ID."\n<dcvalue element=\"contributor\" qualifier=\"advisor1ID\" language=\"por\">".$pfCPF."</dcvalue>";
 				}
 				if(!empty($pfLattes)){
-					$advisorLattes=$advisorLattes."\n<dcvalue element=\"contributor\" qualifier=\"advisorLattes\" language=\"por\">".$pfLattes."</dcvalue>";
+					$advisor1Lattes=$advisor1Lattes."\n<dcvalue element=\"contributor\" qualifier=\"advisor1Lattes\" language=\"por\">".$pfLattes."</dcvalue>";
 				}
 				
 			}
@@ -820,21 +820,21 @@ if(!session_is_registered("VAdmin_cnCod")) {
 				*/
 				
 				if(!empty($pfNome)){
-					$author="<dcvalue element=\"contributor\" qualifier=\"author\">".citacaoNomeABNT($pfNome,false)."</dcvalue>";
+					$creator="<dcvalue element=\"creator\">".citacaoNomeABNT($pfNome,false)."</dcvalue>";
 				}elseif (!empty($pfCitacao)){
-					$author="<dcvalue element=\"contributor\" qualifier=\"author\">".htmlspecialchars($pfCitacao, ENT_QUOTES)."</dcvalue>";
+					$creator="<dcvalue element=\"creator\">".htmlspecialchars($pfCitacao, ENT_QUOTES)."</dcvalue>";
 				}elseif(!empty($pfCitacaoABNT)){
-					$author="<dcvalue element=\"contributor\" qualifier=\"author\">".htmlspecialchars($pfCitacaoABNT, ENT_QUOTES)."</dcvalue>";
+					$creator="<dcvalue element=\"creator\">".htmlspecialchars($pfCitacaoABNT, ENT_QUOTES)."</dcvalue>";
 				}else{
-					$author="<dcvalue element=\"contributor\" qualifier=\"author\">".htmlspecialchars($pfNome, ENT_QUOTES)."</dcvalue>";
+					$creator="<dcvalue element=\"creator\">".htmlspecialchars($pfNome, ENT_QUOTES)."</dcvalue>";
 				}
 				
 				if(!empty($pfCPF)){
-					$contributorauthorID="<dcvalue element=\"contributor\" qualifier=\"authorID\" language=\"por\">".$pfCPF."</dcvalue>";
+					$creatorID="<dcvalue element=\"creator\" qualifier=\"ID\" language=\"por\">".$pfCPF."</dcvalue>";
 				}
 				
 				if(!empty($pfLattes)){
-					$contributorauthorLattes="<dcvalue element=\"contributor\" qualifier=\"authorLattes\" language=\"por\">".$pfLattes."</dcvalue>";
+					$creatorLattes="<dcvalue element=\"creator\" qualifier=\"Lattes\" language=\"por\">".$pfLattes."</dcvalue>";
 				}
 
 				//$citation="<dcvalue element=\"identifier\" qualifier=\"citation\">".$pfCitacaoABNT."</dcvalue>";
@@ -873,21 +873,21 @@ if(!session_is_registered("VAdmin_cnCod")) {
 					*/
 
 					if (!empty($pfNome)){
-						$referees=$referees."\n<dcvalue element=\"contributor\" qualifier=\"referees".$idReferees."\">".citacaoNomeABNT($pfNome)."</dcvalue>";
+						$referee=$referee."\n<dcvalue element=\"contributor\" qualifier=\"referee".$idReferees."\">".citacaoNomeABNT($pfNome)."</dcvalue>";
 					}elseif(!empty($pfCitacao)){
-						$referees=$referees."\n<dcvalue element=\"contributor\" qualifier=\"referees".$idReferees."\">".htmlspecialchars($pfCitacao, ENT_QUOTES)."</dcvalue>";
+						$referee=$referee."\n<dcvalue element=\"contributor\" qualifier=\"referee".$idReferees."\">".htmlspecialchars($pfCitacao, ENT_QUOTES)."</dcvalue>";
 					}elseif(!empty($pfCitacaoABNT)){
-						$referees=$referees."\n<dcvalue element=\"contributor\" qualifier=\"referees".$idReferees."\">".htmlspecialchars($pfCitacaoABNT, ENT_QUOTES)."</dcvalue>";
+						$referee=$referee."\n<dcvalue element=\"contributor\" qualifier=\"referee".$idReferees."\">".htmlspecialchars($pfCitacaoABNT, ENT_QUOTES)."</dcvalue>";
 					}else{
-						$referees=$referees."\n<dcvalue element=\"contributor\" qualifier=\"referees".$idReferees."\">".htmlspecialchars($pfNome, ENT_QUOTES)."</dcvalue>";
+						$referee=$referee."\n<dcvalue element=\"contributor\" qualifier=\"referee".$idReferees."\">".htmlspecialchars($pfNome, ENT_QUOTES)."</dcvalue>";
 					}
 					
 					if(!empty($pfCPF)){
-						$refereesID=$refereesID."\n<dcvalue element=\"contributor\" qualifier=\"referees".$idReferees."ID\" language=\"por\">".$pfCPF."</dcvalue>";
+						$refereeID=$refereeID."\n<dcvalue element=\"contributor\" qualifier=\"referee".$idReferees."ID\" language=\"por\">".$pfCPF."</dcvalue>";
 					}
 				
 					if(!empty($pfLattes)){
-						$refereesLattes=$refereesLattes."\n<dcvalue element=\"contributor\" qualifier=\"referees".$idReferees."Lattes\" language=\"por\">".$pfLattes."</dcvalue>";
+						$refereeLattes=$refereeLattes."\n<dcvalue element=\"contributor\" qualifier=\"referee".$idReferees."Lattes\" language=\"por\">".$pfLattes."</dcvalue>";
 					}
 					
 				}
@@ -898,13 +898,13 @@ if(!session_is_registered("VAdmin_cnCod")) {
 		}
 		
 		if ($orientadorCount==0){
-			$erro_metadados=$erro_metadados."pfNome_ORIENTADOR: dc.contributor.advisor - orientador: não preenchido;";
-			$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ ". "dc.contributor.advisor - orientador: não preenchido\n";
+			$erro_metadados=$erro_metadados."pfNome_ORIENTADOR: dc.contributor.advisor1 - orientador: não preenchido;";
+			$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ ". "dc.contributor.advisor1 - orientador: não preenchido\n";
 		
 		}
 		if ($autorCount==0){
-			$erro_metadados=$erro_metadados."pfNome_AUTOR: dc.contributor.author - autor: não preenchido;";
-			$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ ". "dc.contributor.author - autor: não preenchido\n";
+			$erro_metadados=$erro_metadados."pfNome_AUTOR: dc.creator - autor: não preenchido;";
+			$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ ". "dc.creator - autor: não preenchido\n";
 		
 		}
 		
@@ -1218,18 +1218,18 @@ if(!session_is_registered("VAdmin_cnCod")) {
 		
 		$arquivoxml="<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>
 		<dublin_core schema=\"dc\">\n"
-		.$author."\n"
-		.$contributorauthorID."\n"
-		.$contributorauthorLattes."\n"
-		.$advisor."\n"
-		.$advisorID."\n"
-		.$advisorLattes."\n"
+		.$creator."\n"
+		.$creatorID."\n"
+		.$creatorLattes."\n"
+		.$advisor1."\n"
+		.$advisor1ID."\n"
+		.$advisor1Lattes."\n"
 		.$advisorco."\n"
 		.$advisorcoID."\n"
 		.$advisorcoLattes."\n"
-		.$referees."\n"
-		.$refereesID."\n"
-		.$refereesLattes."\n"
+		.$referee."\n"
+		.$refereeID."\n"
+		.$refereeLattes."\n"
 		.$acessioned."\n"
 		.$available."\n"
 		.$issued."\n"
@@ -1328,8 +1328,8 @@ if(!session_is_registered("VAdmin_cnCod")) {
 		
 		$qtd_reg_sucesso=$id-$qtd_reg_erros;
 				
-		unset($tempFormato,$citacaoDocumento,$pfNomeAutor,$ttTitulo,$tsDataDefesa_ano,$pageCount,$grauTipo,$prArea,$inNome,$tsCidadeLocalDefesa);unset($arquivoxml,$contributorauthorID,$contributorauthorLattes,$advisor,$advisorID,$advisorLattes,$advisorco,$advisorcoID);
-		unset($advisorcoLattes,$referees,$refereesID,$refereesLattes,$acessioned,$available,$issued,$identifierCitation,$resumo,$abstract);
+		unset($tempFormato,$citacaoDocumento,$pfNomeAutor,$ttTitulo,$tsDataDefesa_ano,$pageCount,$grauTipo,$prArea,$inNome,$tsCidadeLocalDefesa);unset($arquivoxml,$creatorID,$creatorLattes,$advisor1,$advisor1ID,$advisor1Lattes,$advisorco,$advisorcoID);
+		unset($advisor1coLattes,$referee,$refereeID,$refereeLattes,$acessioned,$available,$issued,$identifierCitation,$resumo,$abstract);
 		unset($sponsorship,$publisher,$publisher_country,$publisher_initials,$department,$program,$type,$title,$titleAlternative,$language);
 		unset($rigths,$subject,$subjectCnpq,$format,$arquivoxmlutf8);
 
