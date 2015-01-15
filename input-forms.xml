@@ -4,31 +4,35 @@
 <!-- 
 Campos que necessitam ser adicionados ao esquema dublin core padrão do DSpace
 
-dc.contributor.authorID
-dc.contributor.authorLattes
-dc.contributor.advisorID
-dc.contributor.advisorLattes
+dc.creator.id
+dc.creator.Lattes
+dc.contributor.advisor1
+dc.contributor.advisor1ID
+dc.contributor.advisor1Lattes
+dc.contributor.advisor2
+dc.contributor.advisor2ID
+dc.contributor.advisor2Lattes
 dc.contributor.advisor-co1
 dc.contributor.advisor-co1ID
 dc.contributor.advisor-co1Lattes
 dc.contributor.advisor-co2
 dc.contributor.advisor-co2ID
 dc.contributor.advisor-co2Lattes
-dc.contributor.referees1
-dc.contributor.referees1ID
-dc.contributor.referees1Lattes
-dc.contributor.referees2
-dc.contributor.referees2ID
-dc.contributor.referees2Lattes
-dc.contributor.referees3
-dc.contributor.referees3ID
-dc.contributor.referees3Lattes
-dc.contributor.referees4
-dc.contributor.referees4ID
-dc.contributor.referees4Lattes
-dc.contributor.referees5
-dc.contributor.referees5ID
-dc.contributor.referees5Lattes
+dc.contributor.referee1
+dc.contributor.referee1ID
+dc.contributor.referee1Lattes
+dc.contributor.referee2
+dc.contributor.referee2ID
+dc.contributor.referee2Lattes
+dc.contributor.referee3
+dc.contributor.referee3ID
+dc.contributor.referee3Lattes
+dc.contributor.referee4
+dc.contributor.referee4ID
+dc.contributor.referee4Lattes
+dc.contributor.referee5
+dc.contributor.referee5ID
+dc.contributor.referee5Lattes
 dc.identifier.doi
 dc.description.resumo
 dc.publisher.country
@@ -148,8 +152,8 @@ dc.audience.educationlevel
 	   
 	   <field>
 		 <dc-schema>dc</dc-schema>
-         <dc-element>contributor</dc-element>
-         <dc-qualifier>author</dc-qualifier>
+         <dc-element>creator</dc-element>
+         <dc-qualifier></dc-qualifier>
          <repeatable>true</repeatable>
          <label>Autor(es):</label>
 		 <type-bind>article, conferenceObject, book, bookPart, report, other</type-bind>
@@ -167,8 +171,8 @@ dc.audience.educationlevel
 	
        <field>
 		 <dc-schema>dc</dc-schema>
-         <dc-element>contributor</dc-element>
-         <dc-qualifier>author</dc-qualifier>
+         <dc-element>creator</dc-element>
+         <dc-qualifier></dc-qualifier>
          <repeatable>false</repeatable>
          <label>Autor:</label>
 		 <type-bind>doctoralThesis, mastherThesis, bachelorThesis</type-bind>
@@ -183,8 +187,8 @@ dc.audience.educationlevel
 
 	    <field>
 		 <dc-schema>dc</dc-schema>
-         <dc-element>contributor</dc-element>
-         <dc-qualifier>authorLattes</dc-qualifier>
+         <dc-element>creator</dc-element>
+         <dc-qualifier>Lattes</dc-qualifier>
          <repeatable>false</repeatable>
          <label>&lt;a href="http://buscatextual.cnpq.br/buscatextual/busca.do?metodo=apresentar" target="_blank" &gt;URL do Currículo Lattes&lt;/a&gt; do autor:</label>
 		  <type-bind>doctoralThesis, mastherThesis, bachelorThesis</type-bind>
@@ -195,8 +199,8 @@ dc.audience.educationlevel
 	   
 	    <field>
 		 <dc-schema>dc</dc-schema>
-         <dc-element>contributor</dc-element>
-         <dc-qualifier>authorID</dc-qualifier>
+         <dc-element>creator</dc-element>
+         <dc-qualifier>ID</dc-qualifier>
          <repeatable>true</repeatable>
          <label>Identificador único do autor:</label>
 		 <type-bind>doctoralThesis, mastherThesis, bachelorThesis</type-bind>
@@ -205,30 +209,65 @@ dc.audience.educationlevel
          <required></required>
        </field>  
 	   
-	   <!-- ORIENTADOR -->
+	  <!-- ORIENTADORES -->
 	   
 	   <field>
 		 <dc-schema>dc</dc-schema>
          <dc-element>contributor</dc-element>
-         <dc-qualifier>advisor</dc-qualifier>
+         <dc-qualifier>advisor1</dc-qualifier>
          <repeatable>false</repeatable>
-         <label>Orientador:</label>
-		 <type-bind>doctoralThesis, mastherThesis, bachelorThesis, report</type-bind>
+         <label>Primeiro orientador:</label>
          <input-type>name</input-type>
-         <hint>&lt;div class="alert alert-info"&gt;Descrição do &lt;strong&gt;ORIENTADOR&lt;/strong&gt;
+         <hint>&lt;div class="alert alert-info"&gt;Descrição do &lt;strong&gt;PRIMEIRO ORIENTADOR&lt;/strong&gt;
+		       &lt;a href="help/submit-help.html#id-orientador" style="float:right" tooltiped="" &gt;Exemplos&lt;/a&gt;
 			   &lt;/div&gt;
-		       &lt;font color="red"&gt;CAMPO OBRIGATÓRIO: &lt;/font&gt; Informe o nome do orientador, conforme o formato de citação.</hint>
-         <required>&lt;font color="red"&gt;&lt;strong&gt;CAMPO OBRIGATÓRIO:&lt;/strong&gt; Informe o nome do ORIENTADOR, conforme o formato de citação.&lt;/font&gt; 
-		           </required>
+		       &lt;font color="red"&gt;CAMPO OBRIGATÓRIO: &lt;/font&gt; Informe o nome do primeiro orientador, conforme o formato de citação.</hint>
+         <required>&lt;font color="red"&gt;&lt;strong&gt;CAMPO OBRIGATÓRIO:&lt;/strong&gt; Informe o nome do PRIMEIRO ORIENTADOR, conforme o formato de citação.&lt;/font&gt; 
+		           &lt;a href="help/submit-help.html#id-orientador" style="float:right;color:black;" tooltiped="" &gt;Exemplos&lt;/a&gt;</required>
        </field>
 
 	    <field>
 		 <dc-schema>dc</dc-schema>
          <dc-element>contributor</dc-element>
-         <dc-qualifier>advisorLattes</dc-qualifier>
+         <dc-qualifier>advisor1Lattes</dc-qualifier>
+         <repeatable>false</repeatable>
+         <label>&lt;a href="http://buscatextual.cnpq.br/buscatextual/busca.do?metodo=apresentar" target="_blank" &gt;URL do Currículo Lattes&lt;/a&gt; do primeiro orientador:</label>
+         <input-type>onebox</input-type>
+         <hint>&lt;font color="#449d44"&gt;CAMPO OPCIONAL: &lt;/font&gt; Informe a URL do currículo lattes do primeiro orientador.</hint>
+         <required></required>
+       </field>
+	   
+	   <field>
+		 <dc-schema>dc</dc-schema>
+         <dc-element>contributor</dc-element>
+         <dc-qualifier>advisor1ID</dc-qualifier>
+         <repeatable>true</repeatable>
+         <label>Identificador único do primeiro orientador:</label>
+         <input-type>onebox</input-type>
+         <hint>&lt;font color="#449d44"&gt;CAMPO OPCIONAL: &lt;/font&gt; Informe o identificador único do primeiro orientador(CPF, ID de autor privativa da instituição ou passaporte).</hint>
+         <required></required>
+       </field>  
+       
+       	   <field>
+		 <dc-schema>dc</dc-schema>
+         <dc-element>contributor</dc-element>
+         <dc-qualifier>advisor2</dc-qualifier>
+         <repeatable>false</repeatable>
+         <label>Segundo orientador:</label>
+         <input-type>name</input-type>
+         <hint>&lt;div class="alert alert-info"&gt;Descrição do &lt;strong&gt;SEGUNDO ORIENTADOR&lt;/strong&gt;
+		       &lt;a href="help/submit-help.html#id-orientador" style="float:right" tooltiped="" &gt;Exemplos&lt;/a&gt;
+			   &lt;/div&gt;
+		       &lt;font color="blue"&gt;CAMPO OPCIONAL: &lt;/font&gt; Informe o nome do segundo orientador, conforme o formato de citação.</hint>
+         <required></required>
+        </field>
+
+	    <field>
+		 <dc-schema>dc</dc-schema>
+         <dc-element>contributor</dc-element>
+         <dc-qualifier>advisor2Lattes</dc-qualifier>
          <repeatable>false</repeatable>
          <label>&lt;a href="http://buscatextual.cnpq.br/buscatextual/busca.do?metodo=apresentar" target="_blank" &gt;URL do Currículo Lattes&lt;/a&gt; do orientador:</label>
-		 <type-bind>doctoralThesis, mastherThesis, bachelorThesis</type-bind>
          <input-type>onebox</input-type>
          <hint>&lt;font color="#449d44"&gt;CAMPO OPCIONAL: &lt;/font&gt; Informe a URL do currículo lattes do orientador.</hint>
          <required></required>
@@ -237,15 +276,14 @@ dc.audience.educationlevel
 	   <field>
 		 <dc-schema>dc</dc-schema>
          <dc-element>contributor</dc-element>
-         <dc-qualifier>advisorID</dc-qualifier>
+         <dc-qualifier>advisor2ID</dc-qualifier>
          <repeatable>true</repeatable>
          <label>Identificador único do orientador:</label>
-		 <type-bind>doctoralThesis, mastherThesis, bachelorThesis</type-bind>
          <input-type>onebox</input-type>
          <hint>&lt;font color="#449d44"&gt;CAMPO OPCIONAL: &lt;/font&gt; Informe o identificador único do orientador(CPF, ID de autor privativa da instituição ou passaporte).</hint>
          <required></required>
-       </field> 
-
+       </field>  
+       
 	   <!-- PRIMEIRO CO-ORIENTADOR -->
 	   
 	   <field>
@@ -336,7 +374,7 @@ dc.audience.educationlevel
 	   <field>
 		 <dc-schema>dc</dc-schema>
          <dc-element>contributor</dc-element>
-         <dc-qualifier>referees1</dc-qualifier>
+         <dc-qualifier>referee1</dc-qualifier>
          <repeatable>false</repeatable>
          <label>Primeiro membro da banca:</label>
 		 <type-bind>doctoralThesis, mastherThesis, bachelorThesis</type-bind>
@@ -350,7 +388,7 @@ dc.audience.educationlevel
 	    <field>
 		 <dc-schema>dc</dc-schema>
          <dc-element>contributor</dc-element>
-         <dc-qualifier>referees1Lattes</dc-qualifier>
+         <dc-qualifier>referee1Lattes</dc-qualifier>
          <repeatable>false</repeatable>
          <label>&lt;a href="http://buscatextual.cnpq.br/buscatextual/busca.do?metodo=apresentar" target="_blank" &gt;URL do Currículo Lattes&lt;/a&gt; do primeiro membro da banca:</label>
 		 <type-bind>doctoralThesis, mastherThesis, bachelorThesis</type-bind>
@@ -362,7 +400,7 @@ dc.audience.educationlevel
 	   <field>
 		 <dc-schema>dc</dc-schema>
          <dc-element>contributor</dc-element>
-         <dc-qualifier>referees1ID</dc-qualifier>
+         <dc-qualifier>referee1ID</dc-qualifier>
          <repeatable>true</repeatable>
          <label>Identificador único do primeiro membro da banca</label>
 		 <type-bind>doctoralThesis, mastherThesis, bachelorThesis</type-bind>
@@ -377,7 +415,7 @@ dc.audience.educationlevel
 	   <field>
 		 <dc-schema>dc</dc-schema>
          <dc-element>contributor</dc-element>
-         <dc-qualifier>referees2</dc-qualifier>
+         <dc-qualifier>referee2</dc-qualifier>
          <repeatable>false</repeatable>
          <label>Segundo membro da banca:</label>
 		 <type-bind>doctoralThesis, mastherThesis, bachelorThesis</type-bind>
@@ -392,7 +430,7 @@ dc.audience.educationlevel
 	    <field>
 		 <dc-schema>dc</dc-schema>
          <dc-element>contributor</dc-element>
-         <dc-qualifier>referees2Lattes</dc-qualifier>
+         <dc-qualifier>referee2Lattes</dc-qualifier>
          <repeatable>false</repeatable>
          <label>&lt;a href="http://buscatextual.cnpq.br/buscatextual/busca.do?metodo=apresentar" target="_blank" &gt;URL do Currículo Lattes&lt;/a&gt; do segundo membro da banca:</label>
 		 <type-bind>doctoralThesis, mastherThesis, bachelorThesis</type-bind>
@@ -404,7 +442,7 @@ dc.audience.educationlevel
 	   <field>
 		 <dc-schema>dc</dc-schema>
          <dc-element>contributor</dc-element>
-         <dc-qualifier>referees2ID</dc-qualifier>
+         <dc-qualifier>referee2ID</dc-qualifier>
          <repeatable>true</repeatable>
          <label>Identificador único do segundo membro da banca</label>
 		 <type-bind>doctoralThesis, mastherThesis, bachelorThesis</type-bind>
@@ -418,7 +456,7 @@ dc.audience.educationlevel
 	   <field>
 		 <dc-schema>dc</dc-schema>
          <dc-element>contributor</dc-element>
-         <dc-qualifier>referees3</dc-qualifier>
+         <dc-qualifier>referee3</dc-qualifier>
          <repeatable>false</repeatable>
          <label>Terceiro membro da banca:</label>
 		 <type-bind>doctoralThesis, mastherThesis, bachelorThesis</type-bind>
@@ -432,7 +470,7 @@ dc.audience.educationlevel
 	    <field>
 		 <dc-schema>dc</dc-schema>
          <dc-element>contributor</dc-element>
-         <dc-qualifier>referees3Lattes</dc-qualifier>
+         <dc-qualifier>referee3Lattes</dc-qualifier>
          <repeatable>false</repeatable>
          <label>&lt;a href="http://buscatextual.cnpq.br/buscatextual/busca.do?metodo=apresentar" target="_blank" &gt;URL do Currículo Lattes&lt;/a&gt; do terceiro membro da banca:</label>
 		 <type-bind>doctoralThesis, mastherThesis, bachelorThesis</type-bind>
@@ -444,7 +482,7 @@ dc.audience.educationlevel
 	    <field>
 		 <dc-schema>dc</dc-schema>
          <dc-element>contributor</dc-element>
-         <dc-qualifier>referees3ID</dc-qualifier>
+         <dc-qualifier>referee3ID</dc-qualifier>
          <repeatable>true</repeatable>
          <label>Identificador único do terceiro membro da banca</label>
 		 <type-bind>doctoralThesis, mastherThesis, bachelorThesis</type-bind>
@@ -458,7 +496,7 @@ dc.audience.educationlevel
 	   <field>
 		 <dc-schema>dc</dc-schema>
          <dc-element>contributor</dc-element>
-         <dc-qualifier>referees4</dc-qualifier>
+         <dc-qualifier>referee4</dc-qualifier>
          <repeatable>false</repeatable>
          <label>Quarto membro da banca:</label>
 		 <type-bind>doctoralThesis, mastherThesis, bachelorThesis</type-bind>
@@ -472,7 +510,7 @@ dc.audience.educationlevel
 	    <field>
 		 <dc-schema>dc</dc-schema>
          <dc-element>contributor</dc-element>
-         <dc-qualifier>referees4Lattes</dc-qualifier>
+         <dc-qualifier>referee4Lattes</dc-qualifier>
          <repeatable>false</repeatable>
          <label>&lt;a href="http://buscatextual.cnpq.br/buscatextual/busca.do?metodo=apresentar" target="_blank" &gt;URL do Currículo Lattes&lt;/a&gt; do quarto membro da banca:</label>
 		 <type-bind>doctoralThesis, mastherThesis, bachelorThesis</type-bind>
@@ -484,7 +522,7 @@ dc.audience.educationlevel
 	   <field>
 		 <dc-schema>dc</dc-schema>
          <dc-element>contributor</dc-element>
-         <dc-qualifier>referees4ID</dc-qualifier>
+         <dc-qualifier>referee4ID</dc-qualifier>
          <repeatable>true</repeatable>
          <label>Identificador único do quarto quarto da banca</label>
 		 <type-bind>doctoralThesis, mastherThesis, bachelorThesis</type-bind>
@@ -498,7 +536,7 @@ dc.audience.educationlevel
 	   <field>
 		 <dc-schema>dc</dc-schema>
          <dc-element>contributor</dc-element>
-         <dc-qualifier>referees5</dc-qualifier>
+         <dc-qualifier>referee5</dc-qualifier>
          <repeatable>false</repeatable>
          <label>Quinto membro da banca:</label>
 		 <type-bind>doctoralThesis, mastherThesis, bachelorThesis</type-bind>
@@ -512,7 +550,7 @@ dc.audience.educationlevel
 	    <field>
 		 <dc-schema>dc</dc-schema>
          <dc-element>contributor</dc-element>
-         <dc-qualifier>referees5Lattes</dc-qualifier>
+         <dc-qualifier>referee5Lattes</dc-qualifier>
          <repeatable>false</repeatable>
          <label>&lt;a href="http://buscatextual.cnpq.br/buscatextual/busca.do?metodo=apresentar" target="_blank" &gt;URL do Currículo Lattes&lt;/a&gt; do quinto  membro da banca:</label>
 		 <type-bind>doctoralThesis, mastherThesis, bachelorThesis</type-bind>
@@ -524,7 +562,7 @@ dc.audience.educationlevel
 	   <field>
 		 <dc-schema>dc</dc-schema>
          <dc-element>contributor</dc-element>
-         <dc-qualifier>referees5ID</dc-qualifier>
+         <dc-qualifier>referee5ID</dc-qualifier>
          <repeatable>true</repeatable>
          <label>Identificador único do quinto quarto da banca</label>
 		 <type-bind>doctoralThesis, mastherThesis, bachelorThesis</type-bind>
