@@ -4,7 +4,7 @@
 <!-- 
 Campos que necessitam ser adicionados ao esquema dublin core padrão do DSpace
 
-dc.creator.id
+dc.creator.ID
 dc.creator.Lattes
 dc.contributor.advisor1
 dc.contributor.advisor1ID
