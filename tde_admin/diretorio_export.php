@@ -6,5 +6,5 @@
 //  "/xxx/xxx/" diretorio exemplo
 // -------------------------------------------------------------------
 
-$DIRETORIO_EXPORTACAO="arquivos_exportacao/";
+$DIRETORIO_EXPORTACAO="/home/tede/arquivos_exportacao/";
 ?>
