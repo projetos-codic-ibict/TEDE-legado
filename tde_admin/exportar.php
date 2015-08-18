@@ -22,6 +22,7 @@ echo $script;
 <!-- InstanceBeginEditable name="head" --> <!-- InstanceEndEditable -->
 <meta name="Pragma" content="no-cache">
 <meta name="Cache-Control" content="no-cache">
+<!-- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> -->
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta name="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT">
 </head>
@@ -126,9 +127,9 @@ header("Location: ../index.php");
                 <table width="100%" border="0" >
                <?php if ($_GET["e"]=="") {?>     
   <tr  align="center" class="tdAdmin">
-    <td class="txtBold"><span class="txtBold">Esse módulo tem como objetivo exportar toda a base de dados PUBLICADA para o DSPACE. Esse procedimento pode ser demorado, podendo durar minutos ou até horas. <br />
-	Caso necessite pode-se aplicar filtros para exportação de TEDs  específicos. 
-	Se você realmente deseja continuar, aguarde até o sistema informar o resultado da exportação. 
+    <td class="txtBold"><span class="txtBold">Esse mÃ³dulo tem como objetivo exportar toda a base de dados PUBLICADA para o DSPACE. Esse procedimento pode ser demorado, podendo durar minutos ou atÃ© horas. <br />
+	Caso necessite pode-se aplicar filtros para exportaÃ§Ã£o de TEDs  especÃ­ficos. 
+	Se vocÃª realmente deseja continuar, aguarde atÃ© o sistema informar o resultado da exportaÃ§Ã£o. 
 	<!--Para continuar <a href="exportar.php?e=sim"> clique aqui</a>! --></span></td>
   </tr>
 
@@ -187,7 +188,7 @@ header("Location: ../index.php");
 				   <tr>
                     <td><strong>Organizar os arquivos exportados:</strong></td>
                     <td width="86%">
-					  <input type="radio" id="organizar" name="organizar" value="UN" checked="checked">Em uma única pasta.<br>
+					  <input type="radio" id="organizar" name="organizar" value="UN" checked="checked">Em uma Ãºnica pasta.<br>
 					  <input type="radio" id="organizar" name="organizar" value="PG">Em Programa  / Grau.<br>
 					</td>
                   </tr>
@@ -214,7 +215,7 @@ header("Location: ../index.php");
     <?php } if ($_GET["e"]=="sim") {  ?>
 	
   <tr align="center" class="tdAdmin">
-    <td align="center">&nbsp; Exportando... aguarde. <br>Esse procedimento pode demorar alguns minutos ou até horas. <br>
+    <td align="center">&nbsp; Exportando... aguarde. <br>Esse procedimento pode demorar alguns minutos ou atÃ© horas. <br>
 	<!--<img src="biblioteca/aguarde.gif"  alt="aguarde">-->
     <?php require "biblioteca/export.php"; ?>
     </td>
@@ -226,15 +227,15 @@ header("Location: ../index.php");
   <?php } ?>
                   <?php if ($_GET[e]=="finalizado") {?>
                   <tr align="center" class="tdAdmin">
-                    <td>Exportação Finalizada! <br><br>
-					Relatório da exportação:<br><br>
+                    <td>ExportaÃ§Ã£o Finalizada! <br><br>
+					RelatÃ³rio da exportaÃ§Ã£o:<br><br>
 					Quantidade de registros processados: <?php echo $_GET[qtd]; ?><br>
 					Quantidade de registros exportados com sucesso: <?php echo $_GET[qtd_sucesso]; ?><br>
 					Quantidade de registros exportados com erros: <?php echo $_GET[qtd2]; ?><br>
 					<!--Quantidade de erro de metadados: <?php echo $_GET[qtd2]; ?><br>
 					Quantidade de erro em arquivos: <?php echo $_GET[qtd3]; ?><br>
 					Quantidade total de erros: <?php echo $_GET[qtd4]; ?><br><br> -->
-					Para visualizar detalhes da exportação, acesse o item de menu "Visualizar" ou <a href="tela_export.php">clique aqui</a>! <?php echo $finalizado; ?></td>
+					Para visualizar detalhes da exportaÃ§Ã£o, acesse o item de menu "Visualizar" ou <a href="tela_export.php">clique aqui</a>! <?php echo $finalizado; ?></td>
                   </tr>
   <?php } ?>
                   
