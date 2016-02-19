@@ -1167,9 +1167,9 @@ if(!session_is_registered("VAdmin_cnCod")) {
 				$contArqNaoExiste++;
 		
 				if ($contents=="") {
-					$contents=$arquivo_nome."	bundle:ORIGINAL	license".$numero_arquivo.".txt	bundle:LICENSE";
+					$contents=$arquivo_nome."\tbundle:ORIGINAL\n";
 				} else {
-					$contents=$contents."".$arquivo_nome."	bundle:ORIGINAL	license.".$numero_arquivo.".txt	bundle:LICENSE";
+					$contents=$contents."\n".$arquivo_nome."\tbundle:ORIGINAL\n";
 				}
 			}else{
 				$tamanho_arquivo_origem=filesize($arquivoorigem);
@@ -1187,9 +1187,9 @@ if(!session_is_registered("VAdmin_cnCod")) {
 					$erro_logfile=$erro_logfile.date("Y-m-d H:i:s,000")." ERROR exportTedeDspace @ Erro Arquivo: ".$arquivoorigem." ->Verificar integridade do arquivo;\n";
 				}
 				if ($contents=="") {
-					$contents=$arquivo_nome."	bundle:ORIGINAL	license".$numero_arquivo.".txt	bundle:LICENSE";
+					$contents=$arquivo_nome."\tbundle:ORIGINAL\n";
 				} else {
-					$contents=$contents."".$arquivo_nome."	bundle:ORIGINAL	license.".$numero_arquivo.".txt	bundle:LICENSE";
+					$contents=$contents."\n".$arquivo_nome."\tbundle:ORIGINAL\n";
 				}
 				if (strtoupper($arFormato)=="PDF"){
 					$pageCount= $pageCount+countPagesPDF($arquivodestino);
